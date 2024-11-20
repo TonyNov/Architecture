@@ -1,19 +1,27 @@
 package controller.news;
 
-import java.sql.Date;
+import java.time.LocalDate;
 
 public class NewsItemBO {
     private Long id;
     private String title;
     private String content;
     private String image;
-    private Date publicationDate;
+    private LocalDate publicationDate;
     private int likesCount;
+    private int dislikesCount;
 
-    // Конструктор по умолчанию
-    public NewsItemBO() {}
+    public NewsItemBO() {
+        id = 0L;
+        title = "noTitle";
+        content = "noContent";
+        image = "image";
+        publicationDate = LocalDate.of(2024, 11, 20);
+        likesCount = 0;
+        dislikesCount = 0;
+    }
 
-    // Геттеры и сеттеры для всех полей
+    // Р“РµС‚С‚РµСЂС‹ Рё СЃРµС‚С‚РµСЂС‹ РґР»СЏ РІСЃРµС… РїРѕР»РµР№
     public Long getId() {
         return id;
     }
@@ -46,11 +54,11 @@ public class NewsItemBO {
         this.image = image;
     }
 
-    public Date getPublicationDate() {
+    public LocalDate getPublicationDate() {
         return publicationDate;
     }
 
-    public void setPublicationDate(Date publicationDate) {
+    public void setPublicationDate(LocalDate publicationDate) {
         this.publicationDate = publicationDate;
     }
 
@@ -60,5 +68,13 @@ public class NewsItemBO {
 
     public void setLikesCount(int likesCount) {
         this.likesCount = likesCount;
+    }
+
+    public int getDislikesCount() {
+        return dislikesCount;
+    }
+
+    public void setDislikesCount(int dislikesCount) {
+        this.dislikesCount = dislikesCount;
     }
 }
