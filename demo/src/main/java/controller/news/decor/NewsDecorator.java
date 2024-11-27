@@ -6,10 +6,15 @@ import java.util.List;
 import controller.news.NewsController;
 import controller.news.NewsItemBO;
 
-public class PositiveNewsController extends NewsDecorator {
+public abstract class NewsDecorator implements NewsListInterface {
+    protected NewsController decoratedNews;
 
-    public PositiveNewsController(NewsController decoratedNews) {
-        super(decoratedNews);
+    protected NewsDecorator() {
+
+    }
+
+    protected NewsDecorator(NewsController decoratedNews) {
+        this.decoratedNews = decoratedNews;
     }
 
     @Override

@@ -1,13 +1,12 @@
 package controller.news;
 
-import java.lang.classfile.Interfaces;
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 
-import controller.news.decor.Interface;
+import controller.news.decor.NewsListInterface;
 
-public class NewsController implements Interface{
+public class NewsController implements NewsListInterface{
     private final List<NewsItemBO> newsList = new ArrayList<>();
 
     public NewsController() {
@@ -59,7 +58,6 @@ public class NewsController implements Interface{
         newsList.add(temp);
     }
 
-    @Override
     // Получение описания новости по id
     public NewsItemBO getNewsById(int id) {
         for (NewsItemBO newsItemBO : newsList)
@@ -68,7 +66,6 @@ public class NewsController implements Interface{
         return null;
     }
 
-    @Override
     public NewsItemBO getNewsByTitle(String title) {
         for (NewsItemBO newsItemBO : newsList)
             if (newsItemBO.getTitle().equals(title))
@@ -96,7 +93,6 @@ public class NewsController implements Interface{
         return temp;
     }
 
-    @Override
     // Получение списка авторов всех новостей
     public List<String> getAllAuthors() {
         List<String> temp = new ArrayList<>();
@@ -105,7 +101,6 @@ public class NewsController implements Interface{
         return temp;
     }
 
-    @Override
     // Получение заголовков новостей определенной категории
     public List<String> getTitlesByCategory(int categoryId) {
         List<String> temp = new ArrayList<>();
@@ -115,7 +110,6 @@ public class NewsController implements Interface{
         return temp;
     }
 
-    @Override
     // Добавление новости
     public void addNews(String title, String content, String image, String author, LocalDate publicationDate,
             int categoryID) {
@@ -129,7 +123,6 @@ public class NewsController implements Interface{
         newsList.add(temp);
     }
 
-    @Override
     // Обновление новости
     public void updateNews(int id, String title, String content, String image, String author, LocalDate publicationDate,
             int categoryID) {
@@ -144,7 +137,6 @@ public class NewsController implements Interface{
             }
     }
 
-    @Override
     // Удаление новости
     public void deleteNews(int id) {
         newsList.removeIf(item -> item.getId() == id);
