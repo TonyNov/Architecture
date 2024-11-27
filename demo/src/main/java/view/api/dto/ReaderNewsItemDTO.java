@@ -13,12 +13,12 @@ public class ReaderNewsItemDTO {
     @JsonProperty("content")
     public String content;
     @JsonProperty("category")
-    public String category;
+    public int category;
 
     public ReaderNewsItemDTO() {
     }
 
-    public ReaderNewsItemDTO(int id, String title, String author, String content, String category) {
+    public ReaderNewsItemDTO(int id, String title, String author, String content, int category) {
         this.id = id;
         this.title = title;
         this.author = author;

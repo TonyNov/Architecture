@@ -3,30 +3,33 @@ package controller.news;
 import java.time.LocalDate;
 
 public class NewsItemBO {
-    private Long id;
+    private int id;
     private String title;
     private String content;
     private String image;
     private LocalDate publicationDate;
     private int likesCount;
     private int dislikesCount;
+    private int categoryID;
+    private String author;
 
     public NewsItemBO() {
-        id = 0L;
+        id = 0;
         title = "noTitle";
         content = "noContent";
         image = "image";
         publicationDate = LocalDate.of(2024, 11, 20);
         likesCount = 0;
         dislikesCount = 0;
+        categoryID = 0;
+        author = "noName";
     }
 
-    // Геттеры и сеттеры для всех полей
-    public Long getId() {
+    public int getId() {
         return id;
     }
 
-    public void setId(Long id) {
+    public void setId(int id) {
         this.id = id;
     }
 
@@ -76,5 +79,21 @@ public class NewsItemBO {
 
     public void setDislikesCount(int dislikesCount) {
         this.dislikesCount = dislikesCount;
+    }
+
+    public int getCategoryID() {
+        return categoryID;
+    }
+
+    public void setCategoryID(int categoryID) {
+        this.categoryID = categoryID;
+    }
+
+    public String getAuthor() {
+        return author;
+    }
+
+    public void setAuthor(String author) {
+        this.author = author;
     }
 }

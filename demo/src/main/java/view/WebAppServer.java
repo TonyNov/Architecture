@@ -2,7 +2,6 @@ package view;
 import org.jboss.resteasy.plugins.server.undertow.UndertowJaxrsServer;
 
 import io.undertow.Undertow;
-import view.api.Singleton;
 
 public class WebAppServer {
 
