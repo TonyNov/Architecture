@@ -8,10 +8,6 @@ import view.api.dto.ReaderNewsListDTO;
 public class FacadeController {
     NewsController newsController = new NewsController();
 
-    public FacadeController() {
-
-    }
-
     public ReaderNewsListDTO getAllNews() {
         ReaderNewsListDTO listDTO = new ReaderNewsListDTO();
         ReaderNewsItemDTO newsItem = new ReaderNewsItemDTO();
@@ -47,6 +43,7 @@ public class FacadeController {
         newsItem.category = elem.getCategoryID();
         return newsItem;
     }
+
     public ReaderNewsListDTO getNewsByKeyWord(String key) {
         ReaderNewsListDTO listDTO = new ReaderNewsListDTO();
         ReaderNewsItemDTO newsItem = new ReaderNewsItemDTO();
@@ -60,15 +57,4 @@ public class FacadeController {
         }
         return listDTO;
     }
-
-    /*
-     * public Response getAllCategories() {
-     * ReaderNewsItemDTO newsItem = new ReaderNewsItemDTO();
-     * newsItem.author = "Иван Иванов";
-     * newsItem.id = 123;
-     * newsItem.title = "Новость номер один";
-     * newsItem.content = "Это содержание новости";
-     * return Response.ok(newsItem).type(MediaType.APPLICATION_JSON).build();
-     * }
-     */
 }

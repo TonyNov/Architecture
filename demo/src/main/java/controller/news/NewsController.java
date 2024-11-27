@@ -1,62 +1,66 @@
 package controller.news;
 
+import java.lang.classfile.Interfaces;
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 
-public class NewsController {
-    private List<NewsItemBO> newsList = new ArrayList<>();
+import controller.news.decor.Interface;
+
+public class NewsController implements Interface{
+    private final List<NewsItemBO> newsList = new ArrayList<>();
 
     public NewsController() {
         NewsItemBO temp = new NewsItemBO();
         temp.setId(0);
-        temp.setTitle("Ученые обнаружили новую форму жизни на глубине океана");
+        temp.setTitle("РЈС‡РµРЅС‹Рµ РѕР±РЅР°СЂСѓР¶РёР»Рё РЅРѕРІСѓСЋ С„РѕСЂРјСѓ Р¶РёР·РЅРё РЅР° РіР»СѓР±РёРЅРµ РѕРєРµР°РЅР°");
         temp.setContent(
-                "Группа ученых из разных стран провела исследование глубинного океана и обнаружила неизвестную ранее форму жизни. Эта находка может значительно изменить нашу понимание эволюции жизни на Земле.");
+                "Р“СЂСѓРїРїР° СѓС‡РµРЅС‹С… РёР· СЂР°Р·РЅС‹С… СЃС‚СЂР°РЅ РїСЂРѕРІРµР»Р° РёСЃСЃР»РµРґРѕРІР°РЅРёРµ РіР»СѓР±РёРЅРЅРѕРіРѕ РѕРєРµР°РЅР° Рё РѕР±РЅР°СЂСѓР¶РёР»Р° РЅРµРёР·РІРµСЃС‚РЅСѓСЋ СЂР°РЅРµРµ С„РѕСЂРјСѓ Р¶РёР·РЅРё. Р­С‚Р° РЅР°С…РѕРґРєР° РјРѕР¶РµС‚ Р·РЅР°С‡РёС‚РµР»СЊРЅРѕ РёР·РјРµРЅРёС‚СЊ РЅР°С€Сѓ РїРѕРЅРёРјР°РЅРёРµ СЌРІРѕР»СЋС†РёРё Р¶РёР·РЅРё РЅР° Р—РµРјР»Рµ.");
         temp.setPublicationDate(LocalDate.of(2025, 8, 15));
         temp.setImage("https://example.com/science-life-discovery.jpg");
-        temp.setCategoryID(1); // Категория: Наука
-        temp.setAuthor("Иванова А.С.");
+        temp.setCategoryID(1); // РљР°С‚РµРіРѕСЂРёСЏ: РќР°СѓРєР°
+        temp.setAuthor("РРІР°РЅРѕРІР° Рђ.РЎ.");
         newsList.add(temp);
         temp.setId(1);
-        temp.setTitle("Валютный курс доллара достиг исторического минимума");
+        temp.setTitle("Р’Р°Р»СЋС‚РЅС‹Р№ РєСѓСЂСЃ РґРѕР»Р»Р°СЂР° РґРѕСЃС‚РёРі РёСЃС‚РѕСЂРёС‡РµСЃРєРѕРіРѕ РјРёРЅРёРјСѓРјР°");
         temp.setContent(
-                "Сегодня на международном валютном рынке доллар США достиг исторического минимума по отношению к евро и японской йене. Эксперты связывают это с политическими нестабильностями в некоторых странах.");
+                "РЎРµРіРѕРґРЅСЏ РЅР° РјРµР¶РґСѓРЅР°СЂРѕРґРЅРѕРј РІР°Р»СЋС‚РЅРѕРј СЂС‹РЅРєРµ РґРѕР»Р»Р°СЂ РЎРЁРђ РґРѕСЃС‚РёРі РёСЃС‚РѕСЂРёС‡РµСЃРєРѕРіРѕ РјРёРЅРёРјСѓРјР° РїРѕ РѕС‚РЅРѕС€РµРЅРёСЋ Рє РµРІСЂРѕ Рё СЏРїРѕРЅСЃРєРѕР№ Р№РµРЅРµ. Р­РєСЃРїРµСЂС‚С‹ СЃРІСЏР·С‹РІР°СЋС‚ СЌС‚Рѕ СЃ РїРѕР»РёС‚РёС‡РµСЃРєРёРјРё РЅРµСЃС‚Р°Р±РёР»СЊРЅРѕСЃС‚СЏРјРё РІ РЅРµРєРѕС‚РѕСЂС‹С… СЃС‚СЂР°РЅР°С….");
         temp.setPublicationDate(LocalDate.of(2025, 9, 22));
         temp.setImage("https://example.com/dollar-rate.jpg");
-        temp.setCategoryID(2); // Категория: Экономика
-        temp.setAuthor("Петров М.М.");
+        temp.setCategoryID(2); // РљР°С‚РµРіРѕСЂРёСЏ: Р­РєРѕРЅРѕРјРёРєР°
+        temp.setAuthor("РџРµС‚СЂРѕРІ Рњ.Рњ.");
         newsList.add(temp);
         temp.setId(2);
-        temp.setTitle("Новое произведение искусства открывается в музее");
+        temp.setTitle("РќРѕРІРѕРµ РїСЂРѕРёР·РІРµРґРµРЅРёРµ РёСЃРєСѓСЃСЃС‚РІР° РѕС‚РєСЂС‹РІР°РµС‚СЃСЏ РІ РјСѓР·РµРµ");
         temp.setContent(
-                "Вечером сегодня в столичном музее состоится презентация новой выставки произведений известного художника. Эксперты называют эту работу одним из наиболее значительных событий в современном искусстве.");
+                "Р’РµС‡РµСЂРѕРј СЃРµРіРѕРґРЅСЏ РІ СЃС‚РѕР»РёС‡РЅРѕРј РјСѓР·РµРµ СЃРѕСЃС‚РѕРёС‚СЃСЏ РїСЂРµР·РµРЅС‚Р°С†РёСЏ РЅРѕРІРѕР№ РІС‹СЃС‚Р°РІРєРё РїСЂРѕРёР·РІРµРґРµРЅРёР№ РёР·РІРµСЃС‚РЅРѕРіРѕ С…СѓРґРѕР¶РЅРёРєР°. Р­РєСЃРїРµСЂС‚С‹ РЅР°Р·С‹РІР°СЋС‚ СЌС‚Сѓ СЂР°Р±РѕС‚Сѓ РѕРґРЅРёРј РёР· РЅР°РёР±РѕР»РµРµ Р·РЅР°С‡РёС‚РµР»СЊРЅС‹С… СЃРѕР±С‹С‚РёР№ РІ СЃРѕРІСЂРµРјРµРЅРЅРѕРј РёСЃРєСѓСЃСЃС‚РІРµ.");
         temp.setPublicationDate(LocalDate.of(2025, 10, 12));
         temp.setImage("https://example.com/art-exhibition.jpg");
-        temp.setCategoryID(3); // Категория: Культура
-        temp.setAuthor("Сидорова Е.В.");
+        temp.setCategoryID(3); // РљР°С‚РµРіРѕСЂРёСЏ: РљСѓР»СЊС‚СѓСЂР°
+        temp.setAuthor("РЎРёРґРѕСЂРѕРІР° Р•.Р’.");
         newsList.add(temp);
         temp.setId(3);
-        temp.setTitle("Финал чемпионата мира по футболу");
+        temp.setTitle("Р¤РёРЅР°Р» С‡РµРјРїРёРѕРЅР°С‚Р° РјРёСЂР° РїРѕ С„СѓС‚Р±РѕР»Сѓ");
         temp.setContent(
-                "Сегодня в Лондоне состоится финальный матч чемпионата мира по футболу. Фаворитом считается команда Бразилии, но эксперты не исключают сюрприз от команды Испании.");
+                "РЎРµРіРѕРґРЅСЏ РІ Р›РѕРЅРґРѕРЅРµ СЃРѕСЃС‚РѕРёС‚СЃСЏ С„РёРЅР°Р»СЊРЅС‹Р№ РјР°С‚С‡ С‡РµРјРїРёРѕРЅР°С‚Р° РјРёСЂР° РїРѕ С„СѓС‚Р±РѕР»Сѓ. Р¤Р°РІРѕСЂРёС‚РѕРј СЃС‡РёС‚Р°РµС‚СЃСЏ РєРѕРјР°РЅРґР° Р‘СЂР°Р·РёР»РёРё, РЅРѕ СЌРєСЃРїРµСЂС‚С‹ РЅРµ РёСЃРєР»СЋС‡Р°СЋС‚ СЃСЋСЂРїСЂРёР· РѕС‚ РєРѕРјР°РЅРґС‹ РСЃРїР°РЅРёРё.");
         temp.setPublicationDate(LocalDate.of(2025, 7, 16));
         temp.setImage("https://example.com/football-championship.jpg");
-        temp.setCategoryID(4); // Категория: Спорт
-        temp.setAuthor("Козлов С.А.");
+        temp.setCategoryID(4); // РљР°С‚РµРіРѕСЂРёСЏ: РЎРїРѕСЂС‚
+        temp.setAuthor("РљРѕР·Р»РѕРІ РЎ.Рђ.");
         newsList.add(temp);
         temp.setId(4);
-        temp.setTitle("Новая версия операционной системы выпущена");
+        temp.setTitle("РќРѕРІР°СЏ РІРµСЂСЃРёСЏ РѕРїРµСЂР°С†РёРѕРЅРЅРѕР№ СЃРёСЃС‚РµРјС‹ РІС‹РїСѓС‰РµРЅР°");
         temp.setContent(
-                "Компания TechCorp сегодня выпустила новую версию своей популярной операционной системы. В новой версии добавлено множество новых функций и улучшений производительности.");
+                "РљРѕРјРїР°РЅРёСЏ TechCorp СЃРµРіРѕРґРЅСЏ РІС‹РїСѓСЃС‚РёР»Р° РЅРѕРІСѓСЋ РІРµСЂСЃРёСЋ СЃРІРѕРµР№ РїРѕРїСѓР»СЏСЂРЅРѕР№ РѕРїРµСЂР°С†РёРѕРЅРЅРѕР№ СЃРёСЃС‚РµРјС‹. Р’ РЅРѕРІРѕР№ РІРµСЂСЃРёРё РґРѕР±Р°РІР»РµРЅРѕ РјРЅРѕР¶РµСЃС‚РІРѕ РЅРѕРІС‹С… С„СѓРЅРєС†РёР№ Рё СѓР»СѓС‡С€РµРЅРёР№ РїСЂРѕРёР·РІРѕРґРёС‚РµР»СЊРЅРѕСЃС‚Рё.");
         temp.setPublicationDate(LocalDate.of(2025, 11, 1));
         temp.setImage("https://example.com/new-os-release.jpg");
-        temp.setCategoryID(5); // Категория: Технологии
-        temp.setAuthor("Николаев А.М.");
+        temp.setCategoryID(5); // РљР°С‚РµРіРѕСЂРёСЏ: РўРµС…РЅРѕР»РѕРіРёРё
+        temp.setAuthor("РќРёРєРѕР»Р°РµРІ Рђ.Рњ.");
         newsList.add(temp);
     }
 
-    // Получение описания новости по id
+    @Override
+    // РџРѕР»СѓС‡РµРЅРёРµ РѕРїРёСЃР°РЅРёСЏ РЅРѕРІРѕСЃС‚Рё РїРѕ id
     public NewsItemBO getNewsById(int id) {
         for (NewsItemBO newsItemBO : newsList)
             if (newsItemBO.getId() == id)
@@ -64,6 +68,7 @@ public class NewsController {
         return null;
     }
 
+    @Override
     public NewsItemBO getNewsByTitle(String title) {
         for (NewsItemBO newsItemBO : newsList)
             if (newsItemBO.getTitle().equals(title))
@@ -71,6 +76,7 @@ public class NewsController {
         return null;
     }
 
+    @Override
     public List<NewsItemBO> getNewsKeyWord(String key) {
         List<NewsItemBO> temp = new ArrayList<>();
         for (NewsItemBO news : newsList) {
@@ -82,6 +88,7 @@ public class NewsController {
         return temp;
     }
 
+    @Override
     public List<NewsItemBO> getAllNews() {
         List<NewsItemBO> temp = new ArrayList<>();
         for (NewsItemBO newsItemBO : newsList)
@@ -89,16 +96,17 @@ public class NewsController {
         return temp;
     }
 
-    // Получение списка авторов всех новостей
+    @Override
+    // РџРѕР»СѓС‡РµРЅРёРµ СЃРїРёСЃРєР° Р°РІС‚РѕСЂРѕРІ РІСЃРµС… РЅРѕРІРѕСЃС‚РµР№
     public List<String> getAllAuthors() {
         List<String> temp = new ArrayList<>();
         for (NewsItemBO newsItemBO : newsList)
             temp.add(newsItemBO.getAuthor());
         return temp;
-
     }
 
-    // Получение заголовков новостей определенной категории
+    @Override
+    // РџРѕР»СѓС‡РµРЅРёРµ Р·Р°РіРѕР»РѕРІРєРѕРІ РЅРѕРІРѕСЃС‚РµР№ РѕРїСЂРµРґРµР»РµРЅРЅРѕР№ РєР°С‚РµРіРѕСЂРёРё
     public List<String> getTitlesByCategory(int categoryId) {
         List<String> temp = new ArrayList<>();
         for (NewsItemBO newsItemBO : newsList)
@@ -107,7 +115,8 @@ public class NewsController {
         return temp;
     }
 
-    // Добавление новости
+    @Override
+    // Р”РѕР±Р°РІР»РµРЅРёРµ РЅРѕРІРѕСЃС‚Рё
     public void addNews(String title, String content, String image, String author, LocalDate publicationDate,
             int categoryID) {
         NewsItemBO temp = new NewsItemBO();
@@ -120,7 +129,8 @@ public class NewsController {
         newsList.add(temp);
     }
 
-    // Обновление новости
+    @Override
+    // РћР±РЅРѕРІР»РµРЅРёРµ РЅРѕРІРѕСЃС‚Рё
     public void updateNews(int id, String title, String content, String image, String author, LocalDate publicationDate,
             int categoryID) {
         for (NewsItemBO newsItemBO : newsList)
@@ -134,7 +144,8 @@ public class NewsController {
             }
     }
 
-    // Удаление новости
+    @Override
+    // РЈРґР°Р»РµРЅРёРµ РЅРѕРІРѕСЃС‚Рё
     public void deleteNews(int id) {
         newsList.removeIf(item -> item.getId() == id);
     }

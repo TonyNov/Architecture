@@ -9,7 +9,7 @@ import view.api.CreatorAPI;
 import view.api.ReaderAPI;
 
 public class Singleton extends Application {
-   private Set<Object> singletons = new HashSet<Object>();
+   private final Set<Object> singletons = new HashSet<>();
    public Singleton() {
       singletons.add(new ReaderAPI());
       singletons.add(new CreatorAPI());

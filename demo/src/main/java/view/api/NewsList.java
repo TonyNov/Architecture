@@ -5,11 +5,7 @@ import java.util.List;
 import java.util.stream.Collectors;
 
 public class NewsList {
-    private List<News> newsItems;
-
-    public NewsList() {
-        this.newsItems = new ArrayList<>();
-    }
+    private final List<News> newsItems = new ArrayList<>();
 
     public void addNewsItem(News item) {
         newsItems.add(item);
