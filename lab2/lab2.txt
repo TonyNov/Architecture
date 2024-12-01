@@ -1,0 +1,55 @@
+@startuml
+class User {
+  +String username
+  +String email
+  +String password
+  
+}
+class Role {
++List<Permition> Permitions;
+}
+class Publication {
+  -String title
+  -String content
+  -Date publicationDate
+  -Category category
+  -User author
+  -List<Comment> comments
+}
+class Category {
+  -String name
+  -List<Publication> publications
+}
+class Comment {
+  -String content
+  -Integer rating
+  -User author
+  -Publication relatedPublication
+}
+class NewsList {
+ 
+}
+enum Permition{
+  CRATECOMMENT,
+  EDITCOMMENT,
+  EDITOWNCOMMET,
+  DELETECOMMENT,
+  DELETEOWNCOMMENT,
+  UNPUBLISH,
+  CREATEPUBLICATION
+  EDITPUBLICATION,
+  EDITOWNPUBLICATION,
+  DELETEPUBLICATION,
+  DELETEOWNPUBLICATION,
+  MOVEPUBLICATION,
+  CREATECATEGORY,
+  REMOVECATEGORY,
+  CHANGEUSERRULES
+}
+Category o-- Publication
+Publication *-- Comment
+Role o-- Permition
+NewsList o-- Category
+User -down-> Role : имеет
+User -right-> NewsList: воздействует
+@enduml

@@ -1,0 +1,59 @@
+@startuml
+title Диаграмма кооперации "Добавление новости"
+'skinparam linetype ortho
+allowmixing
+actor User
+object New
+object Category
+collections NewsList
+collections Categories
+actor User
+User -right-> New: 1. Запустить создание\n2. Написать название\n3. Добавить контент\n4. Выбрать категорию\n5. Запустить публикацию
+New -right-> Category: 7.Добавить новость в категорию
+New -down-> NewsList: 6.Добавить новость в список
+Category -right-o Categories
+New -->User: 8.Сообщить об успешном добавлении
+@enduml
+
+
+@startuml
+title Диаграмма последовательности "Редактирование новости"
+
+participant User
+participant New
+participant NewsList
+participant Category
+participant Categories
+participant TransferObject1
+participant TransferObject2
+activate User
+activate New
+activate NewsList
+activate Category
+activate Categories
+User -> NewsList : Найти новость
+NewsList -> TransferObject1 : Создать transferobject
+activate TransferObject1
+TransferObject1 <- NewsList : Загрузить найденную новость
+TransferObject1 -> New : Отправить пользователю
+New --> User : Новость получена
+deactivate TransferObject1
+destroy TransferObject1
+
+User -> New : Изменить данные
+User -> New : Подтвердить изменения
+New -> TransferObject2 : Создать transferobject
+activate TransferObject2
+New -> TransferObject2 : Загрузить измененную новость
+TransferObject2 -> NewsList : Отправить transferobject в newsList
+deactivate TransferObject2
+destroy TransferObject2
+'Note over NewsList
+ ' Если изменена категория, то newsList отправляет в категории новостей запрос на удаление новости из текущей категории.
+
+NewsList -> Categories : [Категория изменена]Удалить новость из текущей категории
+NewsList -> Category : [Категория изменена]Добавить новость в категорию
+Categories --> NewsList : [Категория изменена]Сообщить об успешном добавлении
+NewsList --> User : Сообщить об успешном изменении
+
+@enduml

@@ -1,0 +1,315 @@
+диагр0
+@startuml
+
+
+skinparam actorStyle awesome
+Actor "Пользователь" as user
+Actor "Администратор" as admin
+Actor "Редактор" as editor
+Actor "Комментатор" as commentor
+Actor "Модератор" as moder
+
+admin --|> user
+editor --|> user
+commentor --|> user
+moder --|> user
+user ---  ("Просматривать новости")
+commentor ---  ("Редактировать свой комментарий")
+admin ---  ("Редактировать чужой комментарий")
+admin ---  ("Создать категорию")
+admin ---  ("Удалить категорию")
+admin ---  ("Удалить чужую публикацию")
+admin ---  ("Изменить права пользователя")
+admin ---  ("Запретить публикацию")
+admin ---  ("Удалить чужой комментарий")
+admin ---  ("Редактировать чужую публикацию")
+admin ---  ("Переместить публикацию в\из категории")
+moder ---  ("Редактировать чужой комментарий")
+
+moder ---  ("Редактировать чужой комментарий")
+moder ---  ("Запретить публикацию")
+moder ---  ("Удалить чужой комментарий")
+moder ---  ("Редактировать чужую публикацию")
+moder ---  ("Переместить публикацию в\из категории")
+moder ---  ("Создать комментарий")
+
+commentor ---  ("Создать комментарий")
+commentor ---  ("Удалить свой комментарий")
+
+editor -- ("Переместить публикацию в\из категории")
+editor ---  ("Создать комментарий")
+editor ---  ("Создать публикацию")
+editor ---  ("Удалить свою публикацию")
+editor ---  ("Редактировать свою публикацию")
+@enduml
+
+
+диагр1
+@startuml
+!define CLASS_COLOR #FFD700
+!define INTERFACE_COLOR #0000FF
+
+class User {
+  +String username
+  +String email
+  +String password
+  +List<Publication> readPublications
+}
+
+class Administrator extends User {
+  -List<Category> categories
+  -List<Publication> managedPublications
+  +void addCategory(String name)
+  +void removeCategory(String name)
+  +void publishPublication(Publication publication)
+  +void unpublishPublication(Publication publication)
+  +void movePublicationToCategory(Publication publication, String categoryName)
+  +void editPublication(Publication publication)
+  +void deletePublication(Publication publication)
+  +void editComment(Comment comment)
+  +void deleteComment(Comment comment)
+  +void createComment(User author, String content)
+  +void banUser(User user)
+}
+
+class Editor extends User {
+  -List<Publication> publishedPublications
+  +void createPublication(String title, String content)
+  +void editPublication(Publication publication)
+  +void deleteOwnPublication(Publication publication)
+}
+
+class Commentator extends User {
+  -List<Comment> comments
+  +void createComment(User author, String content)
+  +void deleteOwnComment(Comment comment)
+}
+
+class Moderator extends User {
+  -List<Publication> moderatedPublications
+  +void editComment(Comment comment)
+  +void deleteComment(Comment comment)
+  +void banUser(User user)
+  +void movePublicationToCategory(Publication publication, String categoryName)
+}
+
+class Publication {
+  -String title
+  -String content
+  -Date publicationDate
+  -Category category
+  -User author
+  -List<Comment> comments
+}
+
+class Category {
+  -String name
+  -List<Publication> publications
+}
+
+class Comment {
+  -String content
+  -Integer rating
+  -String link
+  -User author
+  -Publication relatedPublication
+}
+
+Administrator ..> Publication : manages
+Editor ..> Publication : publishes
+Commentator ..> Comment : creates
+Moderator ..> Comment : edits
+User ..> Publication : reads
+
+Publication "1" --* Comment: has
+Category "1" --* Publication: contains
+@enduml
+
+
+диагр 2
+
+@startuml
+!define CLASS_COLOR #FFD700
+!define INTERFACE_COLOR #0000FF
+
+class User {
+  +String username
+  +String email
+  +String password
+}
+
+class Admin extends User {
+  -List<String> categories
+  -List<Publication> publications
+  -Map<String, Role> userRoles
+  +void addCategory(String name)
+  +void removeCategory(String name)
+}
+class publications
+class Editor extends User {
+  -List<Publication> publishedPublications
+  +void publishPublication(Publication publication)
+}
+
+class Commentator extends User {
+  -List<Comment> comments
+}
+
+class Moderator extends User {
+  -List<Publication> moderatedPublications
+}
+
+class NewsService {
+  +void unpublishPublication(Publication publication)
+  +void movePublicationToCategory(Publication publication, String categoryName)
+  +void editPublication(Publication publication)
+  +void deletePublication(Publication publication)
+  +void editComment(Comment comment)
+  +void deleteComment(Comment comment)
+  +void createComment(User author, String content)
+  +void banUser(User user)
+}
+
+class Publication {
+  -String title
+  -String content
+  -Date publicationDate
+  -String category
+  -User author
+}
+
+class Category {
+  -String name
+  -List<Publication> publications
+}
+
+class Comment {
+  -String content
+  -User author
+  -Publication relatedPublication
+}
+
+Admin ..> NewsService : uses
+Editor ..> NewsService : uses
+Commentator ..> NewsService : uses
+Moderator ..> NewsService : uses
+User ..> NewsService : uses
+NewsService ..> Publication : manages
+NewsService ..> Category : manages
+NewsService ..> Comment : manages
+
+@enduml
+
+
+
+
+Диаг 3(его)
+@startuml
+class User {
+  +String username
+  +String email
+  +String password
+  +List<Publication> readPublications
+}
+
+
+class Publication {
+  -String title
+  -String content
+  -Date publicationDate
+  -Category category
+  -User author
+  -List<Comment> comments
+}
+
+class Category {
+  -String name
+  -List<Publication> publications
+}
+
+class Comment {
+  -String content
+  -Integer rating
+  -User author
+  -Publication relatedPublication
+}
+
+class Permition {
+
+}
+
+class Role {
+
+}
+
+class UserRoles {
+
+}
+
+User --o Role
+Permition --o Role
+UserRoles --o User : '*'   1
+UserRoles --o Role
+
+Category *-- Publication
+Publication *-- Comment
+@enduml
+
+диагр 4
+@startuml
+
+class User {
+  +String username
+  +String email
+  +String password
+  
+}
+
+
+class Role {
++List<Permition> Permitions;
+}
+
+
+
+
+
+class Publication {
+  -String title
+  -String content
+  -Date publicationDate
+  -Category category
+  -User author
+  -List<Comment> comments
+}
+class Category {
+  -String name
+  -List<Publication> publications
+}
+class Comment {
+  -String content
+  -Integer rating
+  -User author
+  -Publication relatedPublication
+}
+enum Permition{
+  CRATECOMMENT,
+  EDITCOMMENT,
+  EDITOWNCOMMET,
+  DELETECOMMENT,
+  DELETEOWNCOMMENT,
+  UNPUBLISH,
+  CREATEPUBLICATION
+  EDITPUBLICATION,
+  EDITOWNPUBLICATION,
+  DELETEPUBLICATION,
+  DELETEOWNPUBLICATION,
+  MOVEPUBLICATION,
+  CREATECATEGORY,
+  REMOVECATEGORY,
+  CHANGEUSERRULES
+}
+Category *-- Publication
+Publication *-- Comment
+
+@enduml
