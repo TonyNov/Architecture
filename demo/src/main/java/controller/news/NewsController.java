@@ -6,56 +6,55 @@ import java.util.List;
 
 import controller.news.decor.NewsListInterface;
 
-public class NewsController implements NewsListInterface{
+public class NewsController implements NewsListInterface {
     private final List<NewsItemBO> newsList = new ArrayList<>();
 
     public NewsController() {
-        NewsItemBO temp = new NewsItemBO();
-        temp.setId(0);
-        temp.setTitle("Ученые обнаружили новую форму жизни на глубине океана");
-        temp.setContent(
+        newsList.add(new NewsItemBO());
+        newsList.get(newsList.size() - 1).setId(0);
+        newsList.get(newsList.size() - 1).setTitle("Ученые обнаружили новую форму жизни на глубине океана");
+        newsList.get(newsList.size() - 1).setContent(
                 "Группа ученых из разных стран провела исследование глубинного океана и обнаружила неизвестную ранее форму жизни. Эта находка может значительно изменить нашу понимание эволюции жизни на Земле.");
-        temp.setPublicationDate(LocalDate.of(2025, 8, 15));
-        temp.setImage("https://example.com/science-life-discovery.jpg");
-        temp.setCategoryID(1); // Категория: Наука
-        temp.setAuthor("Иванова А.С.");
-        newsList.add(temp);
-        temp.setId(1);
-        temp.setTitle("Валютный курс доллара достиг исторического минимума");
-        temp.setContent(
+        newsList.get(newsList.size() - 1).setPublicationDate(LocalDate.of(2025, 8, 15));
+        newsList.get(newsList.size() - 1).setImage("https://example.com/science-life-discovery.jpg");
+        newsList.get(newsList.size() - 1).setCategoryID(1); // Категория: Наука
+        newsList.get(newsList.size() - 1).setAuthor("Иванова А.С.");
+        newsList.add(new NewsItemBO());
+        newsList.get(newsList.size() - 1).setId(1);
+        newsList.get(newsList.size() - 1).setTitle("Валютный курс доллара достиг исторического минимума");
+        newsList.get(newsList.size() - 1).setContent(
                 "Сегодня на международном валютном рынке доллар США достиг исторического минимума по отношению к евро и японской йене. Эксперты связывают это с политическими нестабильностями в некоторых странах.");
-        temp.setPublicationDate(LocalDate.of(2025, 9, 22));
-        temp.setImage("https://example.com/dollar-rate.jpg");
-        temp.setCategoryID(2); // Категория: Экономика
-        temp.setAuthor("Петров М.М.");
-        newsList.add(temp);
-        temp.setId(2);
-        temp.setTitle("Новое произведение искусства открывается в музее");
-        temp.setContent(
+        newsList.get(newsList.size() - 1).setPublicationDate(LocalDate.of(2025, 9, 22));
+        newsList.get(newsList.size() - 1).setImage("https://example.com/dollar-rate.jpg");
+        newsList.get(newsList.size() - 1).setCategoryID(2); // Категория: Экономика
+        newsList.get(newsList.size() - 1).setAuthor("Петров М.М.");
+        newsList.add(new NewsItemBO());
+        newsList.get(newsList.size() - 1).setId(2);
+        newsList.get(newsList.size() - 1).setTitle("Новое произведение искусства открывается в музее");
+        newsList.get(newsList.size() - 1).setContent(
                 "Вечером сегодня в столичном музее состоится презентация новой выставки произведений известного художника. Эксперты называют эту работу одним из наиболее значительных событий в современном искусстве.");
-        temp.setPublicationDate(LocalDate.of(2025, 10, 12));
-        temp.setImage("https://example.com/art-exhibition.jpg");
-        temp.setCategoryID(3); // Категория: Культура
-        temp.setAuthor("Сидорова Е.В.");
-        newsList.add(temp);
-        temp.setId(3);
-        temp.setTitle("Финал чемпионата мира по футболу");
-        temp.setContent(
+        newsList.get(newsList.size() - 1).setPublicationDate(LocalDate.of(2025, 10, 12));
+        newsList.get(newsList.size() - 1).setImage("https://example.com/art-exhibition.jpg");
+        newsList.get(newsList.size() - 1).setCategoryID(3); // Категория: Культура
+        newsList.get(newsList.size() - 1).setAuthor("Сидорова Е.В.");
+        newsList.add(new NewsItemBO());
+        newsList.get(newsList.size() - 1).setId(3);
+        newsList.get(newsList.size() - 1).setTitle("Финал чемпионата мира по футболу");
+        newsList.get(newsList.size() - 1).setContent(
                 "Сегодня в Лондоне состоится финальный матч чемпионата мира по футболу. Фаворитом считается команда Бразилии, но эксперты не исключают сюрприз от команды Испании.");
-        temp.setPublicationDate(LocalDate.of(2025, 7, 16));
-        temp.setImage("https://example.com/football-championship.jpg");
-        temp.setCategoryID(4); // Категория: Спорт
-        temp.setAuthor("Козлов С.А.");
-        newsList.add(temp);
-        temp.setId(4);
-        temp.setTitle("Новая версия операционной системы выпущена");
-        temp.setContent(
+        newsList.get(newsList.size() - 1).setPublicationDate(LocalDate.of(2025, 7, 16));
+        newsList.get(newsList.size() - 1).setImage("https://example.com/football-championship.jpg");
+        newsList.get(newsList.size() - 1).setCategoryID(4); // Категория: Спорт
+        newsList.get(newsList.size() - 1).setAuthor("Козлов С.А.");
+        newsList.add(new NewsItemBO());
+        newsList.get(newsList.size() - 1).setId(4);
+        newsList.get(newsList.size() - 1).setTitle("Новая версия операционной системы выпущена");
+        newsList.get(newsList.size() - 1).setContent(
                 "Компания TechCorp сегодня выпустила новую версию своей популярной операционной системы. В новой версии добавлено множество новых функций и улучшений производительности.");
-        temp.setPublicationDate(LocalDate.of(2025, 11, 1));
-        temp.setImage("https://example.com/new-os-release.jpg");
-        temp.setCategoryID(5); // Категория: Технологии
-        temp.setAuthor("Николаев А.М.");
-        newsList.add(temp);
+        newsList.get(newsList.size() - 1).setPublicationDate(LocalDate.of(2025, 11, 1));
+        newsList.get(newsList.size() - 1).setImage("https://example.com/new-os-release.jpg");
+        newsList.get(newsList.size() - 1).setCategoryID(5); // Категория: Технологии
+        newsList.get(newsList.size() - 1).setAuthor("Николаев А.М.");
     }
 
     // Получение описания новости по id
@@ -87,10 +86,7 @@ public class NewsController implements NewsListInterface{
 
     @Override
     public List<NewsItemBO> getAllNews() {
-        List<NewsItemBO> temp = new ArrayList<>();
-        for (NewsItemBO newsItemBO : newsList)
-            temp.add(newsItemBO);
-        return temp;
+        return newsList;
     }
 
     // Получение списка авторов всех новостей

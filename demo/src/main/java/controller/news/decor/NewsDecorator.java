@@ -1,6 +1,5 @@
 package controller.news.decor;
 
-import java.util.ArrayList;
 import java.util.List;
 
 import controller.news.NewsController;
@@ -19,14 +18,13 @@ public abstract class NewsDecorator implements NewsListInterface {
 
     @Override
     public List<NewsItemBO> getNewsKeyWord(String key) {
-        List<NewsItemBO> result = new ArrayList<>(decoratedNews.getNewsKeyWord(key));
-        // Здесь вы можете добавить дополнительное поведение
-        System.out.println("Декоратор: Искать новости по ключевому слову '" + key + "'");
-        return result;
+        System.out.println("Р”РµРєРѕСЂР°С‚РѕСЂ: РСЃРєР°С‚СЊ РЅРѕРІРѕСЃС‚Рё РїРѕ РєР»СЋС‡РµРІРѕРјСѓ СЃР»РѕРІСѓ '" + key + "'");
+        return decoratedNews.getNewsKeyWord(key);
     }
 
     @Override
     public List<NewsItemBO> getAllNews() {
+        System.out.println("Р”РµРєРѕСЂР°С‚РѕСЂ: Р’СЃРµ РЅРѕРІРѕСЃС‚Рё");
         return decoratedNews.getAllNews();
     }
 }

@@ -14,14 +14,23 @@ public class PositiveNewsController extends NewsDecorator {
 
     @Override
     public List<NewsItemBO> getNewsKeyWord(String key) {
-        List<NewsItemBO> result = new ArrayList<>(decoratedNews.getNewsKeyWord(key));
-        // Здесь вы можете добавить дополнительное поведение
-        System.out.println("Декоратор: Искать новости по ключевому слову '" + key + "'");
+        System.out.println("Р”РµРєРѕСЂР°С‚РѕСЂ: РСЃРєР°С‚СЊ РЅРѕРІРѕСЃС‚Рё РїРѕ РєР»СЋС‡РµРІРѕРјСѓ СЃР»РѕРІСѓ '" + key + "'");
+        List<NewsItemBO> temp = new ArrayList<>(decoratedNews.getNewsKeyWord(key));
+        List<NewsItemBO> result = new ArrayList<>();
+        for (int i = 0; i < temp.size(); i++)
+            if (!temp.get(i).getAuthor().equals("РРІР°РЅРѕРІР° Рђ.РЎ."))
+                result.add(temp.get(i));
         return result;
     }
 
     @Override
     public List<NewsItemBO> getAllNews() {
-        return decoratedNews.getAllNews();
+        System.out.println("Р”РµРєРѕСЂР°С‚РѕСЂ: Р’СЃРµ РЅРѕРІРѕСЃС‚Рё");
+        List<NewsItemBO> temp = new ArrayList<>(decoratedNews.getAllNews());
+        List<NewsItemBO> result = new ArrayList<>();
+        for (int i = 0; i < temp.size(); i++)
+            if (!temp.get(i).getAuthor().equals("РРІР°РЅРѕРІР° Рђ.РЎ."))
+                result.add(temp.get(i));
+        return result;
     }
 }
