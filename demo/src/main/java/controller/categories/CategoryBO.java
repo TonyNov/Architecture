@@ -8,19 +8,21 @@ import controller.news.NewsItemBO;
 public class CategoryBO {
 
     private int id;
-    private String name;
+    private String title;
+    private String discription;
     private final List<NewsItemBO> newsList = new ArrayList<>();
 
-    public CategoryBO(String n) {
-        name = n;
+    public CategoryBO(String n, String d) {
+        title = n;
+        discription = d;
     }
 
-    public String getName() {
-        return name;
+    public String getTitle() {
+        return title;
     }
 
-    public void setName(String name) {
-        this.name = name;
+    public void setTitle(String name) {
+        title = name;
     }
 
     public void setId(int id) {
@@ -65,6 +67,17 @@ public class CategoryBO {
 
     public void clear() {
         newsList.clear();
+    }
+
+    public String getDiscription() {
+        return discription;
+    }
+
+    public void setDiscription(String discription) {
+        this.discription = discription;
+    }
+    public List<NewsItemBO> getAllNews() {
+        return newsList;
     }
 
 }
