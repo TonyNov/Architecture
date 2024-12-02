@@ -1,0 +1,59 @@
+@startuml classDiagram
+' skinparam actorStyle awesome
+left to right direction
+' skinparam classAttributeIconSize 0
+
+class User {
+    +int ID
+    +String username
+    +String password
+    +int RoleID
+    registration()
+    autentification()
+    viewCourse()
+}
+class Group{
+    +List<User> relatedUsers
+    +User groupAdmin
+}
+class Student {
+    +String username
+    +String password
+    +List<Course> availableCourses
+    +List<Group> relatedGroups
+}
+class Teacher {
+    +String username
+    +String password
+    +List<Course> courses
+    +List<Student> students
+    +List<Grade> grades
+    +List<Group> relatedGroups
+}
+
+class Admin {
+    +String username
+    +String password
+    +List<Course> courses
+    +List<User> users
+
+}
+class Cours{
+    +int ID
+    +Teacher creator
+}
+User <|-- Student
+User <|-- Teacher
+User <|-- Admin
+
+Teacher "1" -- "*" Cours
+Teacher "1" -- "*" Student
+Teacher "1" -- "*" Group
+
+Student "1" -- "*" Cours
+Student "1" -- "*" Group
+
+
+
+
+    @enduml
