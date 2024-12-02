@@ -1,5 +1,4 @@
 @startuml classDiagram
-' skinparam actorStyle awesome
 left to right direction
 ' skinparam classAttributeIconSize 0
 
@@ -42,6 +41,14 @@ class Cours{
     +int ID
     +Teacher creator
 }
+class Grade {
+    +int value
+    +String description
+    +Date date
+}
+class GradeList{
+
+}
 User <|-- Student
 User <|-- Teacher
 User <|-- Admin
@@ -50,10 +57,9 @@ Teacher "1" -- "*" Cours
 Teacher "1" -- "*" Student
 Teacher "1" -- "*" Group
 
-Student "1" -- "*" Cours
-Student "1" -- "*" Group
+    Student "1" -- "*" Cours
+    Student "1" -- "*" Group
 
 
 
-
-    @enduml
+        @enduml
