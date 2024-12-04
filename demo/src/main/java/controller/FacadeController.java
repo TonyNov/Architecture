@@ -1,5 +1,6 @@
 package controller;
 
+import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -7,6 +8,7 @@ import controller.categories.CategoriesController;
 import controller.categories.CategoryBO;
 import controller.news.NewsController;
 import controller.news.NewsItemBO;
+import controller.news.decor.NewsListInterface;
 import controller.news.decor.PositiveNewsController;
 import view.api.dto.CategoryDTO;
 import view.api.dto.CategoryesListDTO;
@@ -14,13 +16,23 @@ import view.api.dto.NewsItemDTO;
 import view.api.dto.NewsListDTO;
 
 public class FacadeController {
-    NewsController newsController = new NewsController();
-    PositiveNewsController positiveNewsController = new PositiveNewsController(newsController);
+    NewsListInterface newsController;
+
+    public FacadeController() {
+
+        LocalDate today = LocalDate.now();
+        LocalDate newYearsDay = LocalDate.of(today.getYear() + 1, 1, 1);
+        if (java.time.temporal.ChronoUnit.DAYS.between(today, newYearsDay) < 31) {
+            newsController = new PositiveNewsController(new NewsController());
+        } else
+            newsController = new NewsController();
+    }
+
     CategoriesController categoriesController = new CategoriesController();
 
     public NewsListDTO getAllNews() {
         NewsListDTO listDTO = new NewsListDTO();
-        List<NewsItemBO> list = positiveNewsController.getAllNews();
+        List<NewsItemBO> list = newsController.getAllNews();
         for (int i = 0; i < list.size(); i++) {
             listDTO.items.add(new NewsItemDTO());
             listDTO.items.get(i).author = list.get(i).getAuthor();

@@ -30,17 +30,4 @@ public class ReaderAPI {
         return Response.ok(facadeController.getNewsByTitle(title)).type(MediaType.APPLICATION_JSON).build();
     }
 
-    /*
-     * @GET
-     * 
-     * @Path("/categories")
-     * public Response getAllCategories() {
-     * ReaderNewsItemDTO newsItem = new ReaderNewsItemDTO();
-     * newsItem.author = "Иван Иванов";
-     * newsItem.id = 123;
-     * newsItem.title = "Новость номер один";
-     * newsItem.content = "Это содержание новости";
-     * return Response.ok(newsItem).type(MediaType.APPLICATION_JSON).build();
-     * }
-     */
 }

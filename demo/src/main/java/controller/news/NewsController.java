@@ -58,13 +58,14 @@ public class NewsController implements NewsListInterface {
     }
 
     // Получение описания новости по id
+    @Override
     public NewsItemBO getNewsById(int id) {
         for (NewsItemBO newsItemBO : newsList)
             if (newsItemBO.getId() == id)
                 return newsItemBO;
         return null;
     }
-
+    @Override
     public NewsItemBO getNewsByTitle(String title) {
         for (NewsItemBO newsItemBO : newsList)
             if (newsItemBO.getTitle().equals(title))
@@ -90,6 +91,7 @@ public class NewsController implements NewsListInterface {
     }
 
     // Получение списка авторов всех новостей
+    @Override
     public List<String> getAllAuthors() {
         List<String> temp = new ArrayList<>();
         for (NewsItemBO newsItemBO : newsList)
@@ -98,6 +100,7 @@ public class NewsController implements NewsListInterface {
     }
 
     // Получение заголовков новостей определенной категории
+    @Override
     public List<String> getTitlesByCategory(int categoryId) {
         List<String> temp = new ArrayList<>();
         for (NewsItemBO newsItemBO : newsList)
@@ -107,6 +110,7 @@ public class NewsController implements NewsListInterface {
     }
 
     // Добавление новости
+    @Override
     public void addNews(String title, String content, String image, String author, LocalDate publicationDate,
             int categoryID) {
         NewsItemBO temp = new NewsItemBO();
@@ -120,6 +124,7 @@ public class NewsController implements NewsListInterface {
     }
 
     // Обновление новости
+    @Override
     public void updateNews(int id, String title, String content, String image, String author, LocalDate publicationDate,
             int categoryID) {
         for (NewsItemBO newsItemBO : newsList)
@@ -134,6 +139,7 @@ public class NewsController implements NewsListInterface {
     }
 
     // Удаление новости
+    @Override
     public void deleteNews(int id) {
         newsList.removeIf(item -> item.getId() == id);
     }

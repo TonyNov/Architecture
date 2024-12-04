@@ -33,4 +33,6 @@ public class PositiveNewsController extends NewsDecorator {
                 result.add(temp.get(i));
         return result;
     }
+
+    
 }
