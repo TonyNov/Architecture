@@ -1,45 +1,34 @@
 @startuml classDiagram
-left to right direction
-' skinparam classAttributeIconSize 0
-
 class User {
     +int ID
     +String username
     +String password
     +int RoleID
-    registration()
-    autentification()
-    viewCourse()
+    +List<Chat> relatedChats
+    +List<Course> availableCourses
+    +List<Group> relatedGroups
+    +registration()
+    +autentification()
+    +viewCourse()
 }
 class Group{
     +List<User> relatedUsers
     +User groupAdmin
 }
-class Student {
-    +String username
-    +String password
-    +List<Course> availableCourses
-    +List<Group> relatedGroups
-}
-class Teacher {
-    +String username
-    +String password
-    +List<Course> courses
-    +List<Student> students
-    +List<Grade> grades
-    +List<Group> relatedGroups
-}
-
-class Admin {
-    +String username
-    +String password
-    +List<Course> courses
+class Chat{
+    +int ID
     +List<User> users
-
+}
+class Message{
+    +int ID
+    +DateAndTime dateAndTime
+    +String text
+    +User sender
 }
 class Cours{
     +int ID
-    +Teacher creator
+    +User creator
+    +List<Student> students
 }
 class Grade {
     +int value
@@ -49,17 +38,28 @@ class Grade {
 class GradeList{
 
 }
-User <|-- Student
-User <|-- Teacher
-User <|-- Admin
-
-Teacher "1" -- "*" Cours
-Teacher "1" -- "*" Student
-Teacher "1" -- "*" Group
-
-    Student "1" -- "*" Cours
-    Student "1" -- "*" Group
-
-
-
-        @enduml
+enum Permition{
+    VIEWCOURCES
+    EDITOWNCOURSE
+    EDITOTHERCOURSE
+    CHANGEPERMITIONS
+    EDITGROUPS
+    EDITOWNPROFILE
+    EDITOTHERPROFILE
+    EDITOWNCHATS
+    EDITOTHERCHATS
+    EDITOWNMESSAGES
+    EDITOTHERMESSAGES
+}
+class Role{
+    +List<Permition> permitions
+}
+User "*" -- "*" Cours : Имеет доступ
+User "*" -- "*" Group : Состоит
+    User "*" -- "*" Chat : Состоит
+    Cours o-- GradeList
+    GradeList *-- Grade
+    User --> Role :"Имеет"
+    Chat *-- "*" Message
+    Role o-- Permition
+    @enduml
