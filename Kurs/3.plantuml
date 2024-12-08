@@ -1,34 +1,18 @@
-@startuml componentDiagram
-cloud NewsServer{
-component NewsDB
-component PublicationsDB
-component CategoryesDB
-component CommentsDB
-}
-cloud UserServer{
-component UsersDB
-component RolesDB
-}
-()IMobileClient
-()IWebClient
-()IUsersEditor
-()INewsEditor
-node webClient
-node Android
-node IOS
-NewsServer --- INewsEditor
-NewsServer --- INewsViewer
-UserServer --- IUsersEditor
-IUsersEditor <|-- IMobileClient
-INewsViewer <|-- IMobileClient
-IUsersEditor <|-- IWebClient
-INewsViewer <|-- IWebClient
-INewsEditor <|-- IWebClient
-IMobileClient <-- Android
-IMobileClient <-- IOS
-IWebClient <-- webClient
-CategoryesDB o-- PublicationsDB
-PublicationsDB *-- CommentsDB
-NewsDB o-- CategoryesDB
-UsersDB -down-> RolesDB
+@startuml sostoianiy
+'left to right direction
+state Черновик: do / Редактирование
+state Готов
+state На_модерации: do / Рассмотрение
+state Опубликовано
+state На_доработке: do / Редактирование
+state Архив
+[*]-->Черновик
+Черновик --> Готов:Работа закончена
+Готов --> На_модерации:отправлен на модерацию
+На_модерации --> Опубликовано: [Прошло проверку]
+На_модерации --> На_доработке: [Не прошло проверку]
+На_доработке -right-> На_модерации
+Опубликовано -right-> [*]
+Опубликовано --> Архив: Снято с публикации
+Архив --> [*]
 @enduml

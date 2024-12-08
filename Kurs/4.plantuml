@@ -1,18 +1,66 @@
-@startuml sostoianiy
-'left to right direction
-state Черновик: do / Редактирование
-state Готов
-state На_модерации: do / Рассмотрение
-state Опубликовано
-state На_доработке: do / Редактирование
-state Архив
-[*]-->Черновик
-Черновик --> Готов:Работа закончена
-Готов --> На_модерации:отправлен на модерацию
-На_модерации --> Опубликовано: [Прошло проверку]
-На_модерации --> На_доработке: [Не прошло проверку]
-На_доработке -right-> На_модерации
-Опубликовано -right-> [*]
-Опубликовано --> Архив: Снято с публикации
-Архив --> [*]
+@startuml componentD
+left to right direction
+rectangle "Онлайн-платформа курсов" as Platform {
+  component "Система регистрации" as RegistrationSystem
+  component "Система авторизации" as AuthorizationSystem
+  component "База данных пользователей" as UserDB
+  component "Система управления курсами" as CourseManagementSystem
+  component "База данных курсов" as CourseDB
+  component "Система оценок" as GradingSystem
+  component "База данных оценок" as GradeDB
+  component "Система сообщений" as MessagingSystem
+  component "База данных сообщений" as MessageDB
+  component "API для мобильных приложений" as MobileAPI
+  component "Интерфейс пользователя" as UserInterface
+  component "Система уведомлений" as NotificationSystem
+  component "Сервис аналитики" as AnalyticsService
+  component "Сервис интеграции" as IntegrationService
+}
+
+RegistrationSystem --> UserDB : Хранит информацию о пользователях
+AuthorizationSystem --> UserDB : Проверяет учетные данные пользователей
+CourseManagementSystem --> CourseDB : Управляет данными курсов
+GradingSystem --> GradeDB : Хранит оценки студентов
+MessagingSystem --> MessageDB : Сохраняет сообщения пользователей
+MobileAPI --> UserDB : Обеспечивает доступ с мобильных устройств
+UserInterface --> UserDB : Предоставляет интерфейс для взаимодействия
+NotificationSystem --> UserDB : Отправляет уведомления пользователям
+AnalyticsService --> UserDB : Анализирует использование платформы
+IntegrationService --> UserDB : Интегрирует внешние сервисы
+
 @enduml
+' cloud NewsServer{
+' component NewsDB
+' component PublicationsDB
+' component CategoryesDB
+' component CommentsDB
+' }
+' cloud UserServer{
+' component UsersDB
+' component RolesDB
+' }
+' ()IMobileClient
+' ()IWebClient
+' ()IUsersEditor
+' ()INewsEditor
+' node webClient
+' node Android
+' node IOS
+' NewsServer --- INewsEditor
+' NewsServer --- INewsViewer
+' UserServer --- IUsersEditor
+' IUsersEditor <|-- IMobileClient
+' INewsViewer <|-- IMobileClient
+' IUsersEditor <|-- IWebClient
+' INewsViewer <|-- IWebClient
+' INewsEditor <|-- IWebClient
+' IMobileClient <-- Android
+' IMobileClient <-- IOS
+' IWebClient <-- webClient
+' CategoryesDB o-- PublicationsDB
+' PublicationsDB *-- CommentsDB
+' NewsDB o-- CategoryesDB
+' UsersDB -down-> RolesDB
+' @enduml
+' !define skinparam backgroundColor #EEEBDC
+' !define skinparam handwritten true
