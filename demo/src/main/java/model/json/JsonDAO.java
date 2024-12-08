@@ -6,13 +6,12 @@ import java.lang.reflect.Field;
 import java.util.ArrayList;
 import java.util.List;
 
-import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.core.type.TypeReference;
+import com.fasterxml.jackson.databind.ObjectMapper;
 
 public class JsonDAO<T> {
     private static final String NEWS_FILE = "data.json";
     protected ObjectMapper objectMapper = new ObjectMapper();
-
     public T getEntityById(int id) throws IOException {
         List<T> allEntities = getAllEntities();
         return allEntities.stream()
