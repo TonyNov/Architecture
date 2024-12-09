@@ -1,65 +1,88 @@
-@startuml classDiagram
-class User {
-    +int ID
-    +String username
-    +String password
-    +int RoleID
-    +List<Chat> relatedChats
-    +List<Course> availableCourses
-    +List<Group> relatedGroups
-    +registration()
-    +authentication()
-    +viewCourse()
+@startuml diag
+skinparam Linetype ortho
+abstract class Пользователь {
+  # String персональные_данные
+  # String email
+  # String пароль
+  # void просмотреть_открытые_курсы()
+  # void общение_с_пользователями()
+  # void редактирование_профиля()
 }
-class Group{
-    +List<User> relatedUsers
-    +User groupAdmin
-}
-class Chat{
-    +int ID
-    +List<User> users
-}
-class Message{
-    +int ID
-    +DateAndTime dateAndTime
-    +String text
-    +User sender
-}
-class Cours{
-    +int ID
-    +User creator
-    +List<Student> students
-}
-class Grade {
-    +int value
-    +String description
-    +Date date
-}
-class GradeList{
 
+class Обучающийся {
+  + List<Курс> курсы
+  + void просмотр_доступных_курсов()
+  + void просмотр_своих_оценок()
 }
-enum Permission{
-    VIEWCOURCES
-    EDITOWNCOURSE
-    EDITOTHERCOURSE
-    CHANGEPERMITIONS
-    EDITGROUPS
-    EDITOWNPROFILE
-    EDITOTHERPROFILE
-    EDITOWNCHATS
-    EDITOTHERCHATS
-    EDITOWNMESSAGES
-    EDITOTHERMESSAGES
+
+class Преподаватель {
+  + List<Курс> курсы
+  + void создание_курса(Курс)
+  + void изменение_курса(Курс)
+  + void удаление_курса(Курс)
+  + void изменение_просмотр_оценок_обучающихся()
+  + void настройка_доступа_к_курсам()
 }
-class Role{
-    +List<Permission> permissions
+
+class Администратор {
+  + настройка_доступа_к_курсам()
+  + удаление_чужих_сообщений()
+  + редактирование_данных_чужого_профиля()
 }
-User "*" -- "*" Cours : Имеет доступ
-User "*" -- "*" Group : Состоит
-    User "*" -- "*" Chat : Состоит
-    Cours o-- GradeList
-    GradeList *-- Grade
-    User --> Role :"Имеет"
-    Chat *-- "*" Message
-    Role o-- Permission
-    @enduml
+
+class Курс {
+  + List<Оценка> оценки
+  + создать()
+  + изменить()
+  + удалить()
+  + добавить_обучающегося()
+  + удалить_обучающегося()
+}
+
+class Оценка {
+  + int значение
+  + Курс курс
+  + Обучающийся обучающийся
+}
+class Чат {
+  +int ID
+  +String название
+  +String текст_автоматического_сообщения
+  +Пользователь создатель
+  +удалить()
+  +добавить пользователя(Пользователь)
+}
+class Сообщение {
+  +int ID
+  +String текст
+  +Date дата_отправки
+  +Time время_отправки
+  +User отправитель
+}
+class Список_пользователей {
+  +добавить_пользователя()
+  +удалить_пользователя()
+}
+class Список_курсов {
+  +добавить_курс()
+  +удалить_курс()
+}
+class Список_чатов {
+  +добавить_чат()
+  +удалить_чат()
+}
+Чат o-- "             *" Сообщение
+Список_чатов *-- "*" Чат
+Список_курсов *-left- "*" Курс
+Список_пользователей *-- "*" Пользователь
+Список_чатов -- Пользователь : Имеет доступ
+Список_курсов -- Пользователь : \n\n\n\n\nИмеет доступ
+Курс "1" -- "             *" Оценка
+Курс "1" -- "             *" Обучающийся
+Курс "           *" -- "1" Преподаватель : \n\n\nУправляет 
+Пользователь "*" -right- "1" Чат
+
+Обучающийся --|> Пользователь
+Преподаватель -right-|> Пользователь
+Администратор --|> Пользователь
+@enduml
