@@ -1,43 +1,65 @@
 package model.json;
 
 import java.io.File;
+import java.io.FileNotFoundException;
+import java.io.FileReader;
 import java.io.IOException;
 import java.lang.reflect.Field;
+import java.text.ParseException;
 import java.util.ArrayList;
 import java.util.List;
 
-import com.fasterxml.jackson.core.type.TypeReference;
-import com.fasterxml.jackson.databind.ObjectMapper;
+import org.json.simple.JSONArray;
+import org.json.simple.JSONObject;
+import org.json.simple.parser.JSONParser;
 
 public class JsonDAO<T> {
-    private static final String NEWS_FILE = "data.json";
-    protected ObjectMapper objectMapper = new ObjectMapper();
+    private static final String NEWS_FILE = "NewsDO.json";
+
     public T getEntityById(int id) throws IOException {
-        List<T> allEntities = getAllEntities();
-        return allEntities.stream()
-                .filter(entity -> {
-                    try {
-                        Field idField = entity.getClass().getDeclaredField("id");
-                        return idField.getInt(entity) == id;
-                    } catch (Exception e) {
-                        throw new RuntimeException(e);
-                    }
-                })
-                .findFirst()
-                .orElse(null);
+        return null;
     }
 
-    public List<T> getAllEntities() throws IOException {
-        File file = new File(NEWS_FILE);
-        if (!file.exists()) {
-            return new ArrayList<>();
-        }
-        try {
-            TypeReference<List<T>> typeRef = new TypeReference<List<T>>() {};
-            return objectMapper.readValue(file, typeRef);
+    private static void parseEmployeeObject(JSONObject employee) {
+        // Get employee object within list
+        JSONObject employeeObject = (JSONObject) employee.get("employee");
+
+        // Get employee first name
+        String firstName = (String) employeeObject.get("firstName");
+        System.out.println(firstName);
+
+        // Get employee last name
+        String lastName = (String) employeeObject.get("lastName");
+        System.out.println(lastName);
+
+        // Get employee website name
+        String website = (String) employeeObject.get("website");
+        System.out.println(website);
+    }
+
+    public List<T> getAllEntities() throws IOException, ParseException {
+        JSONParser jsonParser = new JSONParser();
+        List<T> list = new ArrayList<>();
+        /* try (FileReader reader = new FileReader(NEWS_FILE)) {
+            Object obj = jsonParser.parse(reader);
+            JSONArray employeeList = (JSONArray) obj;
+            System.out.println(employeeList);
+            employeeList.forEach(emp -> parseEmployeeObject((JSONObject) emp));
+        } catch (ParseException e) {
+            e.printStackTrace();
+        } catch (FileNotFoundException e) {
+            e.printStackTrace();
         } catch (IOException e) {
-            throw new IOException("Ошибка при чтении файла JSON", e);
+            e.printStackTrace();
+        } */
+        try (FileReader reader = new FileReader(NEWS_FILE)){
+            Object obj = jsonParser.parse(reader);
+        } catch (ParseException e) {
+            // Обработка исключения
+            e.printStackTrace();
         }
+
+        return list;
     }
 
     public void deleteEntityById(int id) throws IOException {
@@ -60,10 +82,5 @@ public class JsonDAO<T> {
     }
 
     private void saveAllEntities(List<T> entities) throws IOException {
-        try {
-            objectMapper.writeValue(new File(NEWS_FILE), entities);
-        } catch (IOException e) {
-            throw new IOException("Ошибка при записи в файл JSON", e);
-        }
     }
 }
