@@ -12,7 +12,7 @@ state "Проверка преподавателем" as check : exit/ Преподаватель проверил тест
 state "Выставление оценки" as makegrade : do/ Ожидание подтверждения преподавателем
 state "Обработка теста" as work
 state "Сохранение оценки" as savegrade
-state "Отправка на исправление" as forcorrect : do/ Добавление в список\n тестов для прохождение
+state "Отправка на исправление" as forcorrect : do/ Добавление в список\n тестов для прохождения
 [*] --> begining
 begining -down-> testing
 testing -->work
