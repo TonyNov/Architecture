@@ -1,23 +1,26 @@
 @startuml diag
 state "Запуск теста" as begining
-state "Работа над вопросом" as work{
-    state "Чтение вопроса" as readq
-    state "Ответ на вопрос" as answerq
-    [*] -right-> readq
-    readq-right->answerq
-    answerq-right->[*]
+state "Прохождение теста" as testing{
+    state "Отображение вопроса" as view: do/ Ожидание ответа обучающегося
+    state "Сохранение ответа" as saving: do/ Сохранение
+    [*] -right-> view
+    view -right-> saving : [Ответ дан]\t       
+    saving -down-> view : [Обучающийся продолжает тестирование]
+    saving -right->[*] : [Обучающийся завершил тест]
 }
-state "Отправка преподавателю" as send: do/ Отправка
-state "Проверка преподавателем" as check : do/ Проверка
-state "Выставление оценки" as makegrade : do/ Добавление оценки обучающегося
-state "Для исправления" as forcorrection: exit/ Тест взят на исправление
+state "Проверка преподавателем" as check : exit/ Преподаватель проверил тест
+state "Выставление оценки" as makegrade : do/ Ожидание подтверждения преподавателем
+state "Обработка теста" as work
+state "Сохранение оценки" as savegrade
+state "Отправка на исправление" as forcorrect : do/ Добавление в список\n тестов для прохождение
 [*] --> begining
-begining -right-> work
-work -->work:[Есть нерешенные вопросы]
-work -down->send:[Все вопросы решены]
-send-->check
-check-->makegrade:[Оценка больше "3"]
-check-->forcorrection:[Оценка меньше "3"]
-forcorrection -->begining
-makegrade --> [*]
+begining -down-> testing
+testing -->work
+work -right->check: [Есть вопросы с открытым ответом]
+work -down->makegrade: [Нет вопросов с открытым ответом]
+check-->makegrade
+makegrade -left->savegrade : [Оценка подтверждена]
+makegrade -->forcorrect : [Тест отправлен обучающемуся\n на исправление]
+forcorrect --> [*]
+savegrade --> [*]
 @enduml

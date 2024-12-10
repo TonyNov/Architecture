@@ -1,34 +1,33 @@
-@startuml componentDiagram
-cloud NewsServer{
-component NewsDB
-component PublicationsDB
-component CategoryesDB
-component CommentsDB
+@startuml diag
+node "Сервер курсов" as Server1 {
+  component "Контроллер курсов"
+  database "База данных курсов"
+  "Контроллер курсов"-->"База данных курсов"
 }
-cloud UserServer{
-component UsersDB
-component RolesDB
+node "Сервер чатов" as Server2 {
+  component "Контроллер чатов"
+  database "База данных чатов"
+  "Контроллер чатов"-->"База данных чатов"
 }
-()IMobileClient
-()IWebClient
-()IUsersEditor
-()INewsEditor
-node webClient
-node Android
-node IOS
-NewsServer --- INewsEditor
-NewsServer --- INewsViewer
-UserServer --- IUsersEditor
-IUsersEditor <|-- IMobileClient
-INewsViewer <|-- IMobileClient
-IUsersEditor <|-- IWebClient
-INewsViewer <|-- IWebClient
-INewsEditor <|-- IWebClient
-IMobileClient <-- Android
-IMobileClient <-- IOS
-IWebClient <-- webClient
-CategoryesDB o-- PublicationsDB
-PublicationsDB *-- CommentsDB
-NewsDB o-- CategoryesDB
-UsersDB -down-> RolesDB
+node "Сервер польбзователей" as Server3 {
+  component "Контроллер польбзователей"
+  database "База данных польбзователей"
+  "Контроллер польбзователей"-->"База данных польбзователей"
+}
+node "Сервер платформы" as Server4 {
+  component "Пользовательский интерфейс"
+  component "API платформы"
+  "Пользовательский интерфейс"-right->"API платформы"
+}
+Server1 -up- Server4
+Server2 -up- Server4
+Server3 -up- Server4
+node "Устройство администратора" as Device1
+node "Устройство преподавателя" as Device2
+node "Устройство обучающегося" as Device3
+node "Компьютер системного администратора" as Device4
+Server4 -up- Device1 : Глобальная сеть
+Server4 -up- Device2 : Глобальная сеть
+Server4 -up- Device3 : Глобальная сеть
+Server4 -left- Device4 : Локальная сеть
 @enduml

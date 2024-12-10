@@ -7,16 +7,10 @@ rectangle "Платформа с онлайн-курсами" as Platform {
   component "Контроллер пользователей" as UserControl
   component "Контроллер курсов" as CourseControl
   component "Контроллер чатов" as ChatControl
-  ()UserInterface
-  ()CourseInterface
-  ()ChatInterface
-  component "API пользователя" as API
-  API--UserInterface
-  API--CourseInterface
-  API--ChatInterface
-  UserInterface--UserControl
-  CourseInterface--CourseControl
-  ChatInterface--ChatControl
+  component "API платформы" as API
+  API-(0-UserControl
+  API-(0-CourseControl
+  API-(0-ChatControl
   UserControl .down. UserDB
   CourseControl .down. CourseDB
   ChatControl .down. ChatDB
