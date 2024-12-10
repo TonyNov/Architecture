@@ -4,10 +4,12 @@ rectangle "Платформа с онлайн-курсами" as Platform {
   database "База данных пользователей" as UserDB
   database "База данных курсов" as CourseDB
   database "База данных чатов" as ChatDB
+  component "Пользовательский интерфейс" as UserInterface
   component "Контроллер пользователей" as UserControl
   component "Контроллер курсов" as CourseControl
   component "Контроллер чатов" as ChatControl
   component "API платформы" as API
+  UserInterface-->API
   API-(0-UserControl
   API-(0-CourseControl
   API-(0-ChatControl
