@@ -17,40 +17,8 @@ rectangle "Платформа с онлайн-курсами" as Platform {
   UserInterface--UserControl
   CourseInterface--CourseControl
   ChatInterface--ChatControl
+  UserControl .down. UserDB
+  CourseControl .down. CourseDB
+  ChatControl .down. ChatDB
 }
 @enduml
-' cloud NewsServer{
-' component NewsDB
-' component PublicationsDB
-' component CategoryesDB
-' component CommentsDB
-' }
-' cloud UserServer{
-' component UsersDB
-' component RolesDB
-' }
-' ()IMobileClient
-' ()IWebClient
-' ()IUsersEditor
-' ()INewsEditor
-' node webClient
-' node Android
-' node IOS
-' NewsServer --- INewsEditor
-' NewsServer --- INewsViewer
-' UserServer --- IUsersEditor
-' IUsersEditor <|-- IMobileClient
-' INewsViewer <|-- IMobileClient
-' IUsersEditor <|-- IWebClient
-' INewsViewer <|-- IWebClient
-' INewsEditor <|-- IWebClient
-' IMobileClient <-- Android
-' IMobileClient <-- IOS
-' IWebClient <-- webClient
-' CategoryesDB o-- PublicationsDB
-' PublicationsDB *-- CommentsDB
-' NewsDB o-- CategoryesDB
-' UsersDB -down-> RolesDB
-' @enduml
-' !define skinparam backgroundColor #EEEBDC
-' !define skinparam handwritten true
