@@ -1,24 +1,23 @@
-@startuml componentD
-left to right direction
-rectangle "Платформа с онлайн-курсами" as Platform {
-  database "База данных пользователей" as UserDB
-  component "Контроллер пользователей" as UserControl
-  database "База данных курсов" as CourseDB
-  component "Контроллер курсов" as CourseControl
-  database "База данных Чатов" as ChatDB
-  component "Контроллер чатов" as ChatControl
-  ()UserInterface
-  ()CourseInterface
-  ()ChatInterface
-  component "API пользователя" as API
-  API--UserInterface
-  API--CourseInterface
-  API--ChatInterface
-  UserInterface--UserControl
-  CourseInterface--CourseControl
-  ChatInterface--ChatControl
-  UserControl .down. UserDB
-  CourseControl .down. CourseDB
-  ChatControl .down. ChatDB
+@startuml diag
+state "Запуск теста" as begining
+state "Работа над вопросом" as work{
+    state "Чтение вопроса" as readq
+    state "Ответ на вопрос" as answerq
+    [*] -right-> readq
+    readq-right->answerq
+    answerq-right->[*]
 }
+state "Отправка преподавателю" as send: do/ Отправка
+state "Проверка преподавателем" as check : do/ Проверка
+state "Выставление оценки" as makegrade : do/ Добавление оценки обучающегося
+state "Для исправления" as forcorrection: exit/ Тест взят на исправление
+[*] --> begining
+begining -right-> work
+work -->work:[Есть нерешенные вопросы]
+work -down->send:[Все вопросы решены]
+send-->check
+check-->makegrade:[Оценка больше "3"]
+check-->forcorrection:[Оценка меньше "3"]
+forcorrection -->begining
+makegrade --> [*]
 @enduml

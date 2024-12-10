@@ -1,0 +1,10 @@
+@startuml diag
+state "Запуск теста" as begining
+state "Работа над вопросом" as work
+state "Чтение вопроса" as readq
+state "Ответ на вопрос" as answerq
+state "Отправка преподавателю" as send: do/ Отправка
+state "Проверка преподавателем" as check : do/ Проверка
+state "Выставление оценки" as makegrade : do/ Добавление оценки обучающегося
+state "Для исправления" as forcorrection: exit/ Тест взят на исправление
+@enduml
