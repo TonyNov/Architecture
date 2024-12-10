@@ -1,12 +1,22 @@
 @startuml componentD
 left to right direction
 rectangle "Платформа с онлайн-курсами" as Platform {
-  component "База данных пользователей" as UserDB
+  database "База данных пользователей" as UserDB
   component "Контроллер пользователей" as UserControl
-  component "База данных курсов" as CourseDB
+  database "База данных курсов" as CourseDB
   component "Контроллер курсов" as CourseControl
-  component "База данных Чатов" as ChatDB
+  database "База данных Чатов" as ChatDB
   component "Контроллер чатов" as ChatControl
+  ()UserInterface
+  ()CourseInterface
+  ()ChatInterface
+  component "API пользователя" as API
+  API--UserInterface
+  API--CourseInterface
+  API--ChatInterface
+  UserInterface--UserControl
+  CourseInterface--CourseControl
+  ChatInterface--ChatControl
 }
 @enduml
 ' cloud NewsServer{

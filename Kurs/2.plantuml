@@ -1,4 +1,5 @@
 @startuml diag
+hide empty methods
 skinparam Linetype ortho
 together{
     class Список_пользователей {
