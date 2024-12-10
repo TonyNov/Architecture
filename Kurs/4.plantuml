@@ -1,33 +1,13 @@
 @startuml componentD
 left to right direction
-rectangle "Онлайн-платформа курсов" as Platform {
-  component "Система регистрации" as RegistrationSystem
-  component "Система авторизации" as AuthorizationSystem
+rectangle "Платформа с онлайн-курсами" as Platform {
   component "База данных пользователей" as UserDB
-  component "Система управления курсами" as CourseManagementSystem
+  component "Контроллер пользователей" as UserControl
   component "База данных курсов" as CourseDB
-  component "Система оценок" as GradingSystem
-  component "База данных оценок" as GradeDB
-  component "Система сообщений" as MessagingSystem
-  component "База данных сообщений" as MessageDB
-  component "API для мобильных приложений" as MobileAPI
-  component "Интерфейс пользователя" as UserInterface
-  component "Система уведомлений" as NotificationSystem
-  component "Сервис аналитики" as AnalyticsService
-  component "Сервис интеграции" as IntegrationService
+  component "Контроллер курсов" as CourseControl
+  component "База данных Чатов" as ChatDB
+  component "Контроллер чатов" as ChatControl
 }
-
-RegistrationSystem --> UserDB : Хранит информацию о пользователях
-AuthorizationSystem --> UserDB : Проверяет учетные данные пользователей
-CourseManagementSystem --> CourseDB : Управляет данными курсов
-GradingSystem --> GradeDB : Хранит оценки студентов
-MessagingSystem --> MessageDB : Сохраняет сообщения пользователей
-MobileAPI --> UserDB : Обеспечивает доступ с мобильных устройств
-UserInterface --> UserDB : Предоставляет интерфейс для взаимодействия
-NotificationSystem --> UserDB : Отправляет уведомления пользователям
-AnalyticsService --> UserDB : Анализирует использование платформы
-IntegrationService --> UserDB : Интегрирует внешние сервисы
-
 @enduml
 ' cloud NewsServer{
 ' component NewsDB

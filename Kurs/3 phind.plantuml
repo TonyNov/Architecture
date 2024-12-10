@@ -1,0 +1,35 @@
+@startuml diag
+[*] --> Studying
+Studying --> [*]
+Studying : Изучение вопроса
+
+Studying --> Resolving
+Resolving --> Studying
+Resolving : Решение вопроса
+
+Resolving --> CompletedTest
+CompletedTest --> [*]
+CompletedTest : Завершение теста
+
+CompletedTest --> Grading
+Grading --> CompletedTest
+Grading : Проверка преподавателем
+
+Grading --> LowGrade
+LowGrade --> Grading
+LowGrade : Низкая оценка
+
+LowGrade --> RetakeTest
+RetakeTest --> LowGrade
+RetakeTest : Возвращение к тесту
+
+RetakeTest --> Grading
+Grading --> NormalGrade
+NormalGrade --> CompletedTest
+NormalGrade : Выставление нормальной оценки
+
+note right of CompletedTest
+Оценка выставляется
+end note
+
+@enduml
