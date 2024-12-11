@@ -5,11 +5,13 @@ import java.util.ArrayList;
 import java.util.List;
 
 import controller.news.decor.NewsListInterface;
+import model.json.JsonDAO;
 
 public class NewsController implements NewsListInterface {
     private final List<NewsItemBO> newsList = new ArrayList<>();
 
     public NewsController() {
+        JsonDAO<NewsItemBO> jsonDao = new JsonDAO<NewsItemBO>() ;
         newsList.add(new NewsItemBO());
         newsList.get(newsList.size() - 1).setId(0);
         newsList.get(newsList.size() - 1).setTitle("Ученые обнаружили новую форму жизни на глубине океана");

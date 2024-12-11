@@ -2,7 +2,9 @@ package controller.news;
 
 import java.time.LocalDate;
 
-public class NewsItemBO {
+import controller.BOInterface;
+
+public class NewsItemBO implements BOInterface{
     private int id;
     private String title;
     private String content;

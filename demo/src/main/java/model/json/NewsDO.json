@@ -1,0 +1,12 @@
+[
+    {
+        "id": 0,
+        "title": "123",
+        "author": "124",
+        "content": "125.",
+        "image": "https://example.com/science-life-discovery.jpg",
+        "likesCount": 0,
+        "dislikesCount": 0,
+        "categoryID": 1
+    }
+]

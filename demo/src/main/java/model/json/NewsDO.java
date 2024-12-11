@@ -1,13 +1,21 @@
 package model.json;
 
-public class NewsDO {
+import java.time.LocalDate;
+
+import controller.BOInterface;
+
+public class NewsDO implements BOInterface {
     public int id;
     public String title;
     public String author;
     public String content;
     public String image;
-    public java.time.LocalDate publicationDate;
     public int likesCount;
     public int dislikesCount;
     public int categoryID;
+
+    @Override
+    public int getId() {
+        return id;
+    }
 }
