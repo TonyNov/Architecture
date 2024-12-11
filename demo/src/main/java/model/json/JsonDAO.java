@@ -1,127 +1,168 @@
 package model.json;
 
-import java.io.File;
-import java.io.FileNotFoundException;
 import java.io.FileReader;
-import java.io.IOException;
-import java.lang.reflect.Constructor;
-import java.lang.reflect.Field;
-import java.text.ParseException;
+import java.io.FileWriter;
+import java.nio.charset.StandardCharsets;
 import java.util.ArrayList;
-import java.util.List;
 
-import org.json.simple.JSONArray;
-import org.json.simple.JSONObject;
-import org.json.simple.parser.JSONParser;
+import com.google.gson.Gson;
+import com.google.gson.GsonBuilder;
 
 public class JsonDAO<T> {
-    private static final String NEWS_FILE = "NewsDO.json";
+    private final Class<T> classType;
+    private static final String NEWS_FILE = "/NewsDO.json";
+    private static final String CATEGORIES_FILE = "/CategoriesDO.json";
 
-    public T getEntityById(int id) throws IOException {
+    public JsonDAO(Class<T> type) {
+        this.classType = type;
+    }
+
+    public T getByID(int id) {
+        Gson gson = new GsonBuilder().setPrettyPrinting().create();
+        try {
+            if (classType == NewsDO.class) {
+                NewsDO[] json = (NewsDO[]) gson.fromJson(new FileReader(NEWS_FILE, StandardCharsets.UTF_8), classType);
+                for (NewsDO elem : json) {
+                    if (elem.id == id) {
+                        return (T) elem;
+                    }
+                }
+            } else if (classType == CategoriesDO.class) {
+                CategoriesDO[] json = (CategoriesDO[]) gson
+                        .fromJson(new FileReader(CATEGORIES_FILE, StandardCharsets.UTF_8), classType);
+                for (CategoriesDO elem : json) {
+                    if (elem.id == id) {
+                        return (T) elem;
+                    }
+                }
+            }
+        } catch (Exception e) {
+            System.out.println(e.getMessage());
+        }
         return null;
     }
 
-    public List<T> getAllEntities() throws IOException {
-        JSONParser jsonParser = new JSONParser();
-        List<T> list = new ArrayList<>();
-        try (FileReader reader = new FileReader(NEWS_FILE)) {
-            Object obj = jsonParser.parse(reader);
-            JSONArray employeeList = (JSONArray) obj;
-            Field[] fields = Class.class.getDeclaredFields();
-            String s = "";
-            for (Field field : fields) 
-                s.concat(field.getName());
-            // for (Object object : employeeList) {
-            //     JSONObject jsonObject = (JSONObject) object;
-
-            //     for (Field field : fields) {
-            //         // Включаем доступ к приватным полям
-            //         field.setAccessible(true);
-
-            //         // Проверяем наличие ключа в JSON
-            //         if (jsonObj.containsKey(field.getName())) {
-            //             // Получаем значение из JSON
-            //             Object value = jsonObj.get(field.getName());
-
-            //             try {
-            //                 // Устанавливаем значение поля
-            //                 field.set(obj, value);
-            //             } catch (IllegalArgumentException e) {
-            //                 System.out
-            //                         .println("Ошибка при установке значения поля: " + field.getName() + " = " + value);
-            //             }
-            //         }
-            //     }
-
-            //     list.add(entity);
-            // }
-            System.out.println(employeeList);
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-
-        return list;
-    }
-
-    public void deleteEntityById(int id) throws IOException, ParseException {
-        List<T> entities = getAllEntities();
-        entities.removeIf(entity -> {
-            try {
-                Field idField = entity.getClass().getDeclaredField("id");
-                return idField.getInt(entity) == id;
-            } catch (Exception e) {
-                throw new RuntimeException(e);
+    public T getAllItems() {
+        Gson gson = new GsonBuilder().setPrettyPrinting().create();
+        try {
+            if (classType == NewsDO[].class) {
+                NewsDO[] json = (NewsDO[]) gson.fromJson(
+                        new FileReader(NEWS_FILE, StandardCharsets.UTF_8), classType);
+                return (T) json;
+            } else if (classType == CategoriesDO[].class) {
+                CategoriesDO[] json = (CategoriesDO[]) gson.fromJson(
+                        new FileReader(CATEGORIES_FILE, StandardCharsets.UTF_8), classType);
+                return (T) json;
             }
-        });
-        saveAllEntities(entities);
+        } catch (Exception e) {
+            System.out.println(e.getMessage());
+        }
+        return null;
     }
 
-    public void addEntity(T entity) throws IOException {
-        List<T> existingEntities = getAllEntities();
-        existingEntities.add(entity);
-        saveAllEntities(existingEntities);
+    public boolean addItem(T t) {
+        Gson gson = new GsonBuilder().setPrettyPrinting().create();
+        try {
+            if (classType == NewsDO.class) {
+                NewsDO[] json = (NewsDO[]) gson.fromJson(new FileReader(NEWS_FILE, StandardCharsets.UTF_8), classType);
+                NewsDO newsDO = (NewsDO) t;
+                NewsDO[] newjson = new NewsDO[json.length + 1];
+                System.arraycopy(json, 0, newjson, 0, json.length);
+                newjson[newjson.length - 1] = newsDO;
+                try (FileWriter fileWriter = new FileWriter(NEWS_FILE, StandardCharsets.UTF_8)) {
+                    fileWriter.write(gson.toJson(newjson));
+                }
+            } else if (classType == CategoriesDO.class) {
+                CategoriesDO[] json = (CategoriesDO[]) gson
+                        .fromJson(new FileReader(CATEGORIES_FILE, StandardCharsets.UTF_8), classType);
+                CategoriesDO categoryDO = (CategoriesDO) t;
+                CategoriesDO[] newjson = new CategoriesDO[json.length + 1];
+                System.arraycopy(json, 0, newjson, 0, json.length);
+                newjson[newjson.length - 1] = categoryDO;
+                try (FileWriter fileWriter = new FileWriter(CATEGORIES_FILE, StandardCharsets.UTF_8)) {
+                    fileWriter.write(gson.toJson(newjson));
+                }
+            }
+        } catch (Exception e) {
+            System.out.println(e.getMessage());
+            return false;
+        }
+        return true;
     }
 
-    private void saveAllEntities(List<T> entities) throws IOException {
+    public boolean editByID(T t) {
+        boolean flag = false;
+        Gson gson = new GsonBuilder().setPrettyPrinting().create();
+        try {
+            if (classType == NewsDO.class) {
+                NewsDO[] json = (NewsDO[]) gson.fromJson(new FileReader(NEWS_FILE, StandardCharsets.UTF_8), classType);
+                NewsDO newsDO = (NewsDO) t;
+                for (int i = 0; i < json.length; i++) {
+                    if (json[i].id == newsDO.id) {
+                        json[i] = newsDO;
+                        flag = true;
+                        break;
+                    }
+                }
+                try (FileWriter fileWriter = new FileWriter(NEWS_FILE, StandardCharsets.UTF_8)) {
+                    fileWriter.write(gson.toJson(json));
+                }
+            } else if (classType == CategoriesDO.class) {
+                CategoriesDO[] json = (CategoriesDO[]) gson
+                        .fromJson(new FileReader(CATEGORIES_FILE, StandardCharsets.UTF_8), classType);
+                CategoriesDO categoryDO = (CategoriesDO) t;
+                for (int i = 0; i < json.length; i++) {
+                    if (json[i].id == categoryDO.id) {
+                        json[i] = categoryDO;
+                        flag = true;
+                        break;
+                    }
+                }
+                try (FileWriter fileWriter = new FileWriter(CATEGORIES_FILE, StandardCharsets.UTF_8)) {
+                    fileWriter.write(gson.toJson(json));
+                }
+            }
+        } catch (Exception e) {
+            System.out.println(e.getMessage());
+        }
+        return flag;
+    }
+
+    public boolean deleteByID(T t) {
+        boolean flag = false;
+        Gson gson = new GsonBuilder().setPrettyPrinting().create();
+        try {
+            if (classType == NewsDO.class) {
+                NewsDO[] json = (NewsDO[]) gson.fromJson(
+                        new FileReader(NEWS_FILE, StandardCharsets.UTF_8), classType);
+                ArrayList<NewsDO> newjson = new ArrayList<>();
+                NewsDO newsDO = (NewsDO) t;
+                for (NewsDO elem : json)
+                    if (elem.id != newsDO.id)
+                        newjson.add(elem);
+                    else
+                        flag = true;
+                try (FileWriter fileWriter = new FileWriter(NEWS_FILE,
+                        StandardCharsets.UTF_8)) {
+                    fileWriter.write(gson.toJson(newjson));
+                }
+            } else if (classType == CategoriesDO.class) {
+                CategoriesDO[] json = (CategoriesDO[]) gson.fromJson(
+                        new FileReader(CATEGORIES_FILE, StandardCharsets.UTF_8), classType);
+                ArrayList<CategoriesDO> newjson = new ArrayList<>();
+                CategoriesDO categoryDO = (CategoriesDO) t;
+                for (CategoriesDO elem : json)
+                    if (elem.id != categoryDO.id)
+                        newjson.add(elem);
+                    else
+                        flag = true;
+                try (FileWriter fileWriter = new FileWriter(CATEGORIES_FILE, StandardCharsets.UTF_8)) {
+                    fileWriter.write(gson.toJson(newjson));
+                }
+            }
+        } catch (Exception e) {
+            System.out.println(e.getMessage());
+        }
+        return flag;
     }
 }
-/*
- * Для определения полей класса T и заполнения ими данными из объектов
- * employeeList, вы можете использовать Java Reflection API. Вот пример того,
- * как можно это сделать:
- * 
- * 1. Сначала определим методы для получения полей и установки значений:
- * 
- * ```java
- * 
- * 
- * 
- * 3. Добавьте методы для получения и установки значений полей:
- * 
- * ```java
- * private void setValue(Object obj, String fieldName, Object value) throws
- * Exception {
- * Field field = obj.getClass().getDeclaredField(fieldName);
- * field.setAccessible(true);
- * field.set(obj, value);
- * }
- * 
- * private Object getValue(Object obj, String fieldName) throws Exception {
- * return obj.getClass().getDeclaredField(fieldName).get(obj);
- * }
- * ```
- * 
- * Этот подход позволяет динамически создавать экземпляры классов T и заполнять
- * их данными из JSON объектов. Он работает с любыми классами, которые реализуют
- * интерфейс T, включая NewsDO и CategoriesDO.
- * 
- * Обратите внимание на следующие моменты:
- * 
- * 1. Использование Reflection может быть медленным для больших объемов данных.
- * 2. Убедитесь, что все поля в JSON соответствуют полям в вашем классе T.
- * 3. Для безопасности рекомендуется добавить проверку типов полей перед
- * установкой значений.
- * 
- * Такой подход позволяет вам работать с различными типами классов через один
- * интерфейс T, что делает ваш код более гибким и универсальным.
- */
