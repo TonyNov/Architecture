@@ -34,7 +34,7 @@ public class CategoriesController {
 
     public void updateCategory(int id, CategoryBO newCategory) {
         for (int i = 0; i < categoriesList.size(); i++)
-            if (categoriesList.get(i).getId() == id) {
+            if (categoriesList.get(i).getID() == id) {
                 categoriesList.set(i, newCategory);
                 return;
             }

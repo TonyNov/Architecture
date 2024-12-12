@@ -36,7 +36,7 @@ public class FacadeController {
         for (int i = 0; i < list.size(); i++) {
             listDTO.items.add(new NewsItemDTO());
             listDTO.items.get(i).author = list.get(i).getAuthor();
-            listDTO.items.get(i).id = list.get(i).getId();
+            listDTO.items.get(i).id = list.get(i).getID();
             listDTO.items.get(i).title = list.get(i).getTitle();
             listDTO.items.get(i).content = list.get(i).getContent();
             listDTO.items.get(i).categoryID = list.get(i).getCategoryID();
@@ -52,7 +52,7 @@ public class FacadeController {
         NewsItemDTO newsItem = new NewsItemDTO();
         NewsItemBO elem = newsController.getNewsById(id);
         newsItem.author = elem.getAuthor();
-        newsItem.id = elem.getId();
+        newsItem.id = elem.getID();
         newsItem.title = elem.getTitle();
         newsItem.content = elem.getContent();
         newsItem.categoryID = elem.getCategoryID();
@@ -67,7 +67,7 @@ public class FacadeController {
         NewsItemDTO newsItem = new NewsItemDTO();
         NewsItemBO elem = newsController.getNewsByTitle(title);
         newsItem.author = elem.getAuthor();
-        newsItem.id = elem.getId();
+        newsItem.id = elem.getID();
         newsItem.title = elem.getTitle();
         newsItem.content = elem.getContent();
         newsItem.categoryID = elem.getCategoryID();
@@ -83,7 +83,7 @@ public class FacadeController {
         NewsItemDTO newsItem = new NewsItemDTO();
         for (NewsItemBO elem : newsController.getNewsKeyWord(key)) {
             newsItem.author = elem.getAuthor();
-            newsItem.id = elem.getId();
+            newsItem.id = elem.getID();
             newsItem.title = elem.getTitle();
             newsItem.content = elem.getContent();
             newsItem.categoryID = elem.getCategoryID();
@@ -118,7 +118,7 @@ public class FacadeController {
         List<CategoryDTO> temp = new ArrayList<>();
         for (CategoryBO category : categoriesController.getNotEmptyCategories()) {
             CategoryDTO tempCategory = new CategoryDTO();
-            tempCategory.id = category.getId();
+            tempCategory.id = category.getID();
             tempCategory.discription = category.getDiscription();
             tempCategory.name = category.getTitle();
             tempCategory.newsList = category.getAllNews();
@@ -131,7 +131,7 @@ public class FacadeController {
         CategoryesListDTO temp = new CategoryesListDTO();
         for (CategoryBO category : categoriesController.getAllCategories()) {
             CategoryDTO tempCategory = new CategoryDTO();
-            tempCategory.id = category.getId();
+            tempCategory.id = category.getID();
             tempCategory.discription = category.getDiscription();
             tempCategory.name = category.getTitle();
             tempCategory.newsList = category.getAllNews();
@@ -143,9 +143,9 @@ public class FacadeController {
     public CategoryDTO getCategory(int id) {
         CategoryDTO temp = new CategoryDTO();
         for (CategoryBO elem : categoriesController.categoriesList)
-            if (elem.getId() == id) {
+            if (elem.getID() == id) {
 
-                temp.id = elem.getId();
+                temp.id = elem.getID();
                 temp.discription = elem.getDiscription();
                 temp.name = elem.getTitle();
                 temp.newsList = elem.getAllNews();
@@ -170,7 +170,7 @@ public class FacadeController {
         CategoryesListDTO temp = new CategoryesListDTO();
         for (CategoryBO category : categoriesController.getCategoriesByKey(str)) {
             CategoryDTO tempCategory = new CategoryDTO();
-            tempCategory.id = category.getId();
+            tempCategory.id = category.getID();
             tempCategory.discription = category.getDiscription();
             tempCategory.name = category.getTitle();
             tempCategory.newsList = category.getAllNews();

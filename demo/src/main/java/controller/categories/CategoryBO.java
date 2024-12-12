@@ -4,8 +4,9 @@ import java.util.ArrayList;
 import java.util.List;
 
 import controller.news.NewsItemBO;
+import model.json.JsonItem;
 
-public class CategoryBO {
+public class CategoryBO implements JsonItem {
 
     private int id;
     private String title;
@@ -17,6 +18,7 @@ public class CategoryBO {
         discription = d;
     }
 
+    @Override
     public String getTitle() {
         return title;
     }
@@ -29,7 +31,8 @@ public class CategoryBO {
         this.id = id;
     }
 
-    public int getId() {
+    @Override
+    public int getID() {
         return id;
     }
 
@@ -43,7 +46,7 @@ public class CategoryBO {
 
     public void removeNewsByID(int newsID) {
         for (int i = 0; i < newsList.size(); i++)
-            if (newsList.get(i).getId() == newsID) {
+            if (newsList.get(i).getID() == newsID) {
                 newsList.remove(i);
                 return;
             }
@@ -69,6 +72,11 @@ public class CategoryBO {
         newsList.clear();
     }
 
+    @Override
+    public String getContent() {
+        return discription;
+    }
+
     public String getDiscription() {
         return discription;
     }
@@ -76,6 +84,7 @@ public class CategoryBO {
     public void setDiscription(String discription) {
         this.discription = discription;
     }
+
     public List<NewsItemBO> getAllNews() {
         return newsList;
     }

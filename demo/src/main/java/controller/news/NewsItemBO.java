@@ -2,9 +2,9 @@ package controller.news;
 
 import java.time.LocalDate;
 
-import controller.BOInterface;
+import model.json.JsonItem;
 
-public class NewsItemBO implements BOInterface{
+public class NewsItemBO implements JsonItem {
     private int id;
     private String title;
     private String content;
@@ -27,14 +27,16 @@ public class NewsItemBO implements BOInterface{
         author = "noName";
     }
 
-    public int getId() {
+    @Override
+    public int getID() {
         return id;
     }
 
-    public void setId(int id) {
+    public void setID(int id) {
         this.id = id;
     }
 
+    @Override
     public String getTitle() {
         return title;
     }
@@ -43,6 +45,7 @@ public class NewsItemBO implements BOInterface{
         this.title = title;
     }
 
+    @Override
     public String getContent() {
         return content;
     }
