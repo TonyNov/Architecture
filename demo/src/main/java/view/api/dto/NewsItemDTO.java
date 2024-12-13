@@ -1,7 +1,5 @@
 package view.api.dto;
 
-import java.time.LocalDate;
-
 public class NewsItemDTO {
 
     public int id;
@@ -9,7 +7,7 @@ public class NewsItemDTO {
     public String author;
     public String content;
     public String image;
-    public LocalDate publicationDate;
+    public String publicationDate;
     public int likesCount;
     public int dislikesCount;
     public int categoryID;

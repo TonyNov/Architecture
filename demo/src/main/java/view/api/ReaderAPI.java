@@ -7,6 +7,8 @@ import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
 
 import controller.FacadeController;
+import view.api.dto.NewsItemDTO;
+import view.api.dto.NewsListDTO;
 
 @Path("/reader")
 public class ReaderAPI {
@@ -15,7 +17,14 @@ public class ReaderAPI {
     @GET // вызовется по GET-запросу http://localhost.../reader/news/all
     @Path("/news/all")
     public Response getAllNews() {
-        return Response.ok(facadeController.getAllNews()).type(MediaType.APPLICATION_JSON).build();
+        System.out.println("geAllNews");
+        NewsListDTO test = facadeController.getAllNews();
+        for (NewsItemDTO elem : test.items) {
+            System.out.println(elem.title);
+            System.out.println(elem.content);
+            System.out.println(elem.author);
+        }
+        return Response.ok(test).type(MediaType.APPLICATION_JSON).build();
     }
 
     @GET // вызовется по GET-запросу http://localhost.../reader/news?id=1

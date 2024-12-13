@@ -1,26 +1,24 @@
 package controller.news;
 
-import java.time.LocalDate;
-
 import model.json.JsonItem;
 
 public class NewsItemBO implements JsonItem {
     private int id;
     private String title;
+    private String author;
     private String content;
     private String image;
-    private LocalDate publicationDate;
+    private String publicationDate;
     private int likesCount;
     private int dislikesCount;
     private int categoryID;
-    private String author;
 
     public NewsItemBO() {
         id = 0;
         title = "noTitle";
         content = "noContent";
         image = "image";
-        publicationDate = LocalDate.of(2024, 11, 20);
+        publicationDate = "2024.11.20";
         likesCount = 0;
         dislikesCount = 0;
         categoryID = 0;
@@ -62,11 +60,11 @@ public class NewsItemBO implements JsonItem {
         this.image = image;
     }
 
-    public LocalDate getPublicationDate() {
+    public String getPublicationDate() {
         return publicationDate;
     }
 
-    public void setPublicationDate(LocalDate publicationDate) {
+    public void setPublicationDate(String publicationDate) {
         this.publicationDate = publicationDate;
     }
 

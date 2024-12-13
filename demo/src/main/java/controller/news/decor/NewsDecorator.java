@@ -1,6 +1,5 @@
 package controller.news.decor;
 
-import java.time.LocalDate;
 import java.util.List;
 
 import controller.news.NewsController;
@@ -16,10 +15,12 @@ public abstract class NewsDecorator implements NewsListInterface {
     protected NewsDecorator(NewsController decoratedNews) {
         this.decoratedNews = decoratedNews;
     }
-@Override
+
+    @Override
     public NewsItemBO getNewsById(int id) {
         return decoratedNews.getNewsById(id);
     }
+
     @Override
     public List<NewsItemBO> getNewsKeyWord(String key) {
         return decoratedNews.getNewsKeyWord(key);
@@ -29,6 +30,7 @@ public abstract class NewsDecorator implements NewsListInterface {
     public List<NewsItemBO> getAllNews() {
         return decoratedNews.getAllNews();
     }
+
     @Override
     public NewsItemBO getNewsByTitle(String title) {
         return decoratedNews.getNewsByTitle(title);
@@ -45,13 +47,13 @@ public abstract class NewsDecorator implements NewsListInterface {
     }
 
     @Override
-    public void addNews(String title, String content, String image, String author, LocalDate publicationDate,
+    public void addNews(String title, String content, String image, String author, String publicationDate,
             int categoryID) {
         decoratedNews.addNews(title, content, image, author, publicationDate, categoryID);
     }
 
     @Override
-    public void updateNews(int id, String title, String content, String image, String author, LocalDate publicationDate,
+    public void updateNews(int id, String title, String content, String image, String author, String publicationDate,
             int categoryID) {
         decoratedNews.updateNews(id, title, content, image, author, publicationDate, categoryID);
     }

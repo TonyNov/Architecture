@@ -1,6 +1,5 @@
 package controller.news;
 
-import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -70,7 +69,7 @@ public class NewsController implements NewsListInterface {
 
     // Добавление новости
     @Override
-    public void addNews(String title, String content, String image, String author, LocalDate publicationDate,
+    public void addNews(String title, String content, String image, String author, String publicationDate,
             int categoryID) {
         NewsItemBO temp = new NewsItemBO();
         temp.setTitle(title);
@@ -84,7 +83,7 @@ public class NewsController implements NewsListInterface {
 
     // Обновление новости
     @Override
-    public void updateNews(int id, String title, String content, String image, String author, LocalDate publicationDate,
+    public void updateNews(int id, String title, String content, String image, String author, String publicationDate,
             int categoryID) {
         for (NewsItemBO newsItemBO : newsList)
             if (newsItemBO.getID() == id) {

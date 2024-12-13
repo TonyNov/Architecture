@@ -5,8 +5,8 @@ import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.io.Reader;
-import java.io.Writer;
 import java.lang.reflect.Type;
+import java.util.ArrayList;
 import java.util.List;
 
 import com.google.gson.Gson;
@@ -30,7 +30,7 @@ public class JsonDAO<T extends JsonItem> implements DAO<T> {
         return null;
     }
 
-    private Writer getWriter() {
+    private FileWriter getWriter() {
         String itemName = this.className.getSimpleName(); // получение имени файла
         String fileName = "demo/src/main/java/model/json/DB/" + itemName + ".json";
         try {
@@ -51,9 +51,9 @@ public class JsonDAO<T extends JsonItem> implements DAO<T> {
     public T get(int id) {
         try (Reader reader = getReader()) {
             List<T> tList = gson.fromJson(reader, listClassName);
-            for (T elem : tList)
-                if (elem.getID() == id)
-                    return elem;
+            for (int i = 0; i < tList.size(); i++)
+                if (tList.get(i).getID() == id)
+                    return tList.get(i);
         } catch (Exception e) {
             System.out.println(e.getMessage());
         }
@@ -73,12 +73,18 @@ public class JsonDAO<T extends JsonItem> implements DAO<T> {
 
     @Override
     public boolean add(T object) {
+        List<T> tList;
         try (Reader reader = getReader()) {
-            List<T> tList = gson.fromJson(reader, listClassName);
-            tList.add(object);
-            try (Writer writer = getWriter()) {
-                writer.write(gson.toJson(writer));
-            }
+            tList = gson.fromJson(reader, listClassName);
+        } catch (Exception e) {
+            System.out.println(e.getMessage());
+            return false;
+        }
+        if (tList == null)
+            tList = new ArrayList<>();
+        tList.add(object);
+        try (FileWriter writer = getWriter()) {
+            writer.write(gson.toJson(tList));
         } catch (Exception e) {
             System.out.println(e.getMessage());
             return false;
@@ -89,20 +95,26 @@ public class JsonDAO<T extends JsonItem> implements DAO<T> {
     @Override
     public boolean update(T object) {
         boolean flag = false;
+        List<T> tList = null;
         try (Reader reader = getReader()) {
-            List<T> tList = gson.fromJson(reader, listClassName);
-            for (int i = 0; i < tList.size(); i++) {
-                if (tList.get(i).getID() == object.getID()) {
-                    tList.set(i, object);
-                    flag = true;
-                    break;
-                }
-            }
-            try (Writer writer = getWriter()) {
-                writer.write(gson.toJson(writer));
-            }
+            tList = gson.fromJson(reader, listClassName);
         } catch (Exception e) {
             System.out.println(e.getMessage());
+        }
+        if (tList == null)
+            return false;
+        for (int i = 0; i < tList.size(); i++) {
+            if (tList.get(i).getID() == object.getID()) {
+                tList.set(i, object);
+                flag = true;
+                break;
+            }
+        }
+        try (FileWriter writer = getWriter()) {
+            writer.write(gson.toJson(tList));
+        } catch (Exception e) {
+            System.out.println(e.getMessage());
+            return false;
         }
         return flag;
     }
@@ -110,16 +122,22 @@ public class JsonDAO<T extends JsonItem> implements DAO<T> {
     @Override
     public boolean delete(int id) {
         boolean flag = false;
+        List<T> tList = null;
         try (Reader reader = getReader()) {
-            List<T> tList = gson.fromJson(reader, listClassName);
-            for (int i = 0; i < tList.size(); i++)
-                if (tList.get(i).getID() == id)
-                    tList.remove(i);
-            try (Writer writer = getWriter()) {
-                writer.write(gson.toJson(writer));
-            }
+            tList = gson.fromJson(reader, listClassName);
         } catch (Exception e) {
             System.out.println(e.getMessage());
+        }
+        if (tList == null)
+            return false;
+        for (int i = 0; i < tList.size(); i++)
+            if (tList.get(i).getID() == id)
+                tList.remove(i);
+        try (FileWriter writer = getWriter()) {
+            writer.write(gson.toJson(tList));
+        } catch (Exception e) {
+            System.out.println(e.getMessage());
+            return false;
         }
         return flag;
     }
